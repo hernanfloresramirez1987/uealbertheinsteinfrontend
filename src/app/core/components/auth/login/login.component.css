@@ -1,3 +1,10 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #081b29;
+}
 .wrapper {
   position: relative;
   width: 750px;
@@ -283,4 +290,13 @@
   transform: rotate(-11deg) skewY(-41deg);
   transition-delay: 1.2s;
 
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  background-color: var(--background-color, #081b29); /* Usa la variable para el color de fondo */
+  /* Resto de estilos */
 }

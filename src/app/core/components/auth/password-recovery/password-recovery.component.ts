@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-password-recovery',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, CardModule],
   templateUrl: './password-recovery.component.html',
   styleUrl: './password-recovery.component.css'
 })

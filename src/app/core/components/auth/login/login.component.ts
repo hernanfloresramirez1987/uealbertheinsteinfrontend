@@ -1,16 +1,22 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, CardModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export default class LoginComponent {
   @ViewChild('.wrapper') wrapper!: any;
+
+  // isActive: boolean = false;
+  wrapperClass: string = ''; // Clase para el elemento wrapper
+  backgroundColor: string = '#081b29'; // Color de fondo
+
 
   isActive: boolean = true;
   fg: FormGroup = new FormGroup({
@@ -34,8 +40,10 @@ export default class LoginComponent {
   // registerLink = document.querySelector('.register-link');
   // loginLink = document.querySelector('.login-link');
 
-  toggleActive() {
-    this.isActive = true;
+  // Método para cambiar la clase del wrapper
+  toggleActive(): void {
+    this.isActive = !this.isActive;
+    this.wrapperClass = this.isActive ? 'active' : '';
   }
 
   // registerLink = () => {
