@@ -1,0 +1,15 @@
+<!-- sidebar.component.html -->
+<p-sidebar [(visible)]="visible" [blockScroll]="true" [dismissible]="false">
+  <div class="sidebar-header">
+    <button pButton type="button" icon="pi pi-arrow-left" (click)="toggleSidebar()" class="p-button-text"></button>
+  </div>
+  <div class="sidebar-content">
+    <!-- Contenido del menú -->
+    <ul class="menu">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/services">Services</a></li>
+      <!-- Agrega más elementos del menú según sea necesario -->
+    </ul>
+  </div>
+</p-sidebar>

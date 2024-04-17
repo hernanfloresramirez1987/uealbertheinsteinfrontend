@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,10 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+  constructor(private primengConfig: PrimeNGConfig) {
+    this.primengConfig.ripple = true;
+  }
+
   title = 'uealbertheinstein_frontend';
 }
