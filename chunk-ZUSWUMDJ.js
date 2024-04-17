@@ -1,2 +1,0 @@
-import{C as t,E as m,I as s,K as l,l as a,v as n,w as r}from"./chunk-GNN5LFIE.js";var x=(()=>{let e=class e{};e.\u0275fac=function(i){return new(i||e)},e.\u0275cmp=a({type:e,selectors:[["app-home"]],standalone:!0,features:[m],decls:7,vars:0,consts:[["routerLink","/login"]],template:function(i,d){i&1&&(t(0,`HOLA
-`),n(1,"a",0),t(2,"enlace "),n(3,"button"),t(4,"LOGIN"),r()(),n(5,"p"),t(6,"home works...!!!"),r())},dependencies:[l,s]});let o=e;return o})();export{x as default};
