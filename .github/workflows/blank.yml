@@ -25,10 +25,10 @@ jobs:
         uses: actions/setup-node@v4.0.2
       #Install dependencies
       - name: Install deps
-        run: yarn
+        run: npm install
       #Build app for production
       - name: Build app bundle
-        run: yarn run build:prod
+        run: npm run build:prod
       #Route fiel renaming
       - name: Rename index for routing
         run: mv dist/uealbertheinsteinfrontend/browser/index.html dist/uealbertheinsteinfrontend/browser/404.html
