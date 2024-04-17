@@ -36,5 +36,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          folder: dist/uealbertheinsteinfrontend
+          folder: dist/uealbertheinsteinfrontend/browser
           branch: gh-pages  # Ajusta la carpeta de construcción según la configuración de tu proyecto
