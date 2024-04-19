@@ -61,7 +61,6 @@ jobs:
       # Configuración de usuario de Git
       - name: Configure Git user
         run: |
-          git config --global user.email hernanfloresramirez1987@gmail.com
           git config --global user.email hernanfloresramirez
           - name: Configure Git user
             run: |
