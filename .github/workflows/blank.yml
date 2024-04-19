@@ -38,3 +38,30 @@ jobs:
         with:
           folder: dist/uealbertheinsteinfrontend/browser
           branch: gh-pages  # Ajusta la carpeta de construcción según la configuración de tu proyecto
+# Job para pruebas o staging
+  test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:prod
+
+      - name: Rename index for routing
+        run: mv dist/uealbertheinsteinfrontend/browser/index.html dist/uealbertheinsteinfrontend/browser/404.html
+
+      # Despliegue en otra rama para pruebas
+      - name: Deploy to test branch
+        run: |
+          git checkout -b test-deployment
+          git add .
+          git commit -m "Deploy to test branch"
+          git push origin test-deployment
