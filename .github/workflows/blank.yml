@@ -61,6 +61,7 @@ jobs:
       # Despliegue en otra rama para pruebas
       - name: Deploy to test branch
         run: |
+          git config --global user.email hernanfloresramirez1987@gmail.com
           git checkout -b test-deployment
           git add .
           git commit -m "Deploy to test branch"
