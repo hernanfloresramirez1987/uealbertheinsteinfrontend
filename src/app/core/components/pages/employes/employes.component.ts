@@ -9,11 +9,12 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-employes',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule],
+  imports: [ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule],
   templateUrl: './employes.component.html',
   styleUrl: './employes.component.css'
 })
