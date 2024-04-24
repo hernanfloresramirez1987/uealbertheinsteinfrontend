@@ -11,13 +11,15 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule, FormsModule, CardModule, InputTextModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, RadioButtonModule, SidebarModule,
-    EmployesRoutingModule
+    EmployesRoutingModule,
+    HttpClientModule
   ]
 })
 export class EmployesModule { }
