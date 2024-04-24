@@ -103,7 +103,7 @@ export default class EmployesComponent {
     await this.tipoempleadoService.getAll()
       .subscribe({
         next: (t: any) => {
-          console.log(t);
+          console.log("ppp: ", t);
           this.itemsTipoempleado.set(t)},
         error: (err) =>{console.log(err)}
       });
