@@ -32,15 +32,15 @@
         </div>
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
-            <p-multiSelect [options]="cities" optionLabel="name"></p-multiSelect>
-            <label for="idcargo">Select Roles</label>
+            <p-multiSelect [options]="itemsCargo()" optionLabel="descrip"></p-multiSelect>
+            <label for="idcargo">Select Cargo</label>
           </span>
         </div>
       </div>
       <div class="grid formgrid pb-0">
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
-            <p-dropdown [options]="cities" placeholder="Select type Document" optionLabel="name" class="p-inputtext-sm" ></p-dropdown>
+            <p-dropdown [options]="itemsTipoempleado()" placeholder="Select type Document" optionLabel="descrip" class="p-inputtext-sm" ></p-dropdown>
             <label for="idtipo">Select a Tipo</label>
           </span>
         </div>

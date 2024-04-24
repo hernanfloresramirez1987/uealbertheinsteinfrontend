@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { PersonalDto } from '../../../models/personalDto.model';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -10,11 +10,16 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { CargoService } from '../../../services/cargo.service';
+import { HttpClientModule } from '@angular/common/http';
+import { TipoempleadoService } from '../../../services/tipoempleado.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-employes',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, HttpClientModule],
+  providers: [CargoService, TipoempleadoService],
   templateUrl: './employes.component.html',
   styleUrl: './employes.component.css'
 })
@@ -47,7 +52,10 @@ export default class EmployesComponent {
 
   stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
 
-    value: string = 'off';
+  value: string = 'off';
+
+  itemsCargo = signal([]);
+  itemsTipoempleado = signal([]);
 
   cities = [
     { name: 'New York', code: 'NY' },
@@ -58,7 +66,7 @@ export default class EmployesComponent {
   ];
   selectedCity: any | undefined;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService) {
     this.fg = this.fb.group({
       username: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       password: new FormControl('', { validators: [Validators.required], nonNullable: true}),
@@ -79,8 +87,27 @@ export default class EmployesComponent {
       fing: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       salario: new FormControl(0, { validators: [Validators.required], nonNullable: true})
     });
+    this.loadCargo();
+    this.loadTipoEmpleado();
   }
-
+  async loadCargo() {
+    await this.cargoService.getAll()
+      .subscribe({
+        next: (t: any) => {
+          console.log(t)
+          this.itemsCargo.set(t)},
+        error: (err: any) => {console.log(err)},
+      });
+  }
+  async loadTipoEmpleado() {
+    await this.tipoempleadoService.getAll()
+      .subscribe({
+        next: (t: any) => {
+          console.log(t);
+          this.itemsTipoempleado.set(t)},
+        error: (err) =>{console.log(err)}
+      });
+  }
   toggleSidebar() {
     this.visible = !this.visible;
   }
