@@ -68,6 +68,7 @@ jobs:
       - name: Deploy to test branch
         run: |
           git checkout -b test-deployment
+          git pull origin test-deployment
           git add .
           git commit -m "Deploy to test branch"
           git push origin test-deployment
