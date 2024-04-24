@@ -71,7 +71,13 @@ jobs:
           git checkout -b test-deployment
           git add .
           git commit -m "Deploy to test branch"
+# <<<<<<< test-deployment
           git config pull.rebase false  # merge
           git config pull.rebase true   # rebase
           git config pull.ff only       # fast-forward only
+# =======
+          git config --global pull.rebase false  # merge
+          git config --global pull.rebase true   # rebase
+          git config --global pull.ff only       # fast-forward only
+# >>>>>>> main
           git push origin test-deployment
