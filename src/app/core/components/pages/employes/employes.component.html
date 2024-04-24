@@ -13,3 +13,131 @@
     </ul>
   </div>
 </p-sidebar>
+<div class="grid p-fluid">
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>InputText</h5>
+      <div class="grid formgrid pb-4">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" />
+            <label for="username">Username</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" type="password"/>
+            <label for="password">Password</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-multiSelect [options]="itemsCargo()" optionLabel="descrip"></p-multiSelect>
+            <label for="idcargo">Select Cargo</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-0">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipoempleado()" placeholder="Select type Document" optionLabel="descrip" class="p-inputtext-sm" ></p-dropdown>
+            <label for="idtipo">Select a Tipo</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" />
+            <label for="doc">Documento</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="cities" placeholder="Select type Document" optionLabel="name" class="p-inputtext-sm" ></p-dropdown>
+            <label for="float-label">Select a expedition</label>
+          </span>
+        </div>
+      </div>
+      <h5>Float Label</h5>
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText>
+        <label for="username">Username</label>
+      </span>
+    </div>
+  </div>
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>Datos Personales</h5>
+      <div class="grid formgrid pb-4">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" />
+            <label for="nombre">Nombres</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm"/>
+            <label for="app">Apellido Paterno</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm"/>
+            <label for="apm">Apellido Materno</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-calendar inputId="birth_date"></p-calendar>
+            <label for="fnaci">Fecha Naciminto</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <div class="flex align-items-center">
+            <!-- <p-radioButton name="sexo" value="Varon"> </p-radioButton> -->
+            <label for="masculino" class="ml-2">Varon</label>
+          </div>
+          <div class="flex align-items-center">
+              <!-- <p-radioButton name="sexo" value="Mujer"> </p-radioButton> -->
+              <label for="femenino" class="ml-2">Mujer</label>
+          </div>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="cities" placeholder="Select type Document" optionLabel="name" class="p-inputtext-sm" ></p-dropdown>
+            <label for="float-label">Select a Estado </label>
+          </span>
+        </div>
+      </div>
+      <h5>Icons</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input type="text" pInputText placeholder="Username"/>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-input-icon-right">
+            <input type="text" pInputText placeholder="Search"/>
+            <i class="pi pi-search"></i>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-input-icon-left p-input-icon-right">
+            <i class="pi pi-user"></i>
+            <input type="text" pInputText placeholder="Search"/>
+            <i class="pi pi-search"></i>
+          </span>
+        </div>
+      </div>
+      <h5>Float Label</h5>
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText>
+        <label for="float-input">Username</label>
+      </span>
+    </div>
+  </div>
+</div>
