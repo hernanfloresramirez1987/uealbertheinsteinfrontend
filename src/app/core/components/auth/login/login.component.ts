@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CardModule } from 'primeng/card';
 
 @Component({
@@ -25,7 +25,7 @@ export default class LoginComponent {
     password: new FormControl(''),
   });
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.fg = fb.group({
       username: [ '', [ Validators.required, Validators.minLength(6), Validators.maxLength(20) ]],
       password: [ '', [ Validators.required, Validators.minLength(6), Validators.maxLength(20) ]]
@@ -54,4 +54,7 @@ export default class LoginComponent {
   // loginLink = () => {
   //     this.wrapper.classList.remove('active');
   // }
+  login = () => {
+    this.router.navigate(['/autorizationrol']);
+  }
 }
