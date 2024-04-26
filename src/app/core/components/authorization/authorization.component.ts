@@ -15,7 +15,9 @@ import { DropdownModule } from 'primeng/dropdown';
 export default class AuthorizationComponent {
   itemsTipoempleado = signal([]);
 
-  constructor(private tipoempleadoService: TipoempleadoService) {}
+  constructor(private tipoempleadoService: TipoempleadoService) {
+    this.loadTipoEmpleado();
+  }
 
   async loadTipoEmpleado() {
     await this.tipoempleadoService.getAll()
