@@ -15,6 +15,7 @@ export default class LoginComponent {
 
   // isActive: boolean = false;
   wrapperClass: string = ''; // Clase para el elemento wrapper
+  visible: boolean = false;
   backgroundColor: string = '#081b29'; // Color de fondo
 
 
