@@ -3,11 +3,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TipoempleadoService } from '../../services/tipoempleado.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-authorization',
   standalone: true,
-  imports: [HttpClientModule, MultiSelectModule,DropdownModule],
+  imports: [HttpClientModule, MultiSelectModule, DropdownModule, ButtonModule],
   providers: [TipoempleadoService],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.css'
