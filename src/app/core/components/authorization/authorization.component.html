@@ -1,9 +1,11 @@
-<div class="flex align-items-center">
-  <div class="col-12 mb-2 lg:col-4 lg:mb-0">
-    <h4>Con que rol desea ingresar</h4>
-    <span class="p-float-label">
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+  <img src="https://johajuli.files.wordpress.com/2016/05/defineroles.jpg?w=640" style="width: 25%;" alt="Imagen">
+  <div class="mb-2">
+    <h4>Con qué rol desea ingresar</h4>
+    <span class="p-float-label pb-2">
       <p-dropdown [options]="itemsTipoempleado()" optionLabel="descrip" styleClass="w-full"></p-dropdown>
       <label for="idcargo">Select Rol</label>
     </span>
+    <p-button label="Acceder" [raised]="true" styleClass="w-full"></p-button>
   </div>
 </div>
