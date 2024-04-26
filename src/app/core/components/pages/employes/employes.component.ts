@@ -14,12 +14,13 @@ import { CargoService } from '../../../services/cargo.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TipoempleadoService } from '../../../services/tipoempleado.service';
 import { CommonModule } from '@angular/common';
+import { TipodocService } from '../../../services/tipodoc.service';
 
 @Component({
   selector: 'app-employes',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, HttpClientModule],
-  providers: [CargoService, TipoempleadoService],
+  providers: [CargoService, TipoempleadoService, TipodocService],
   templateUrl: './employes.component.html',
   styleUrl: './employes.component.css'
 })
@@ -56,6 +57,8 @@ export default class EmployesComponent {
 
   itemsCargo = signal([]);
   itemsTipoempleado = signal([]);
+  itemsTipodoc = signal([]);
+  itemsExtdocs = [{name: 'Lp', value: 'La Paz'}, {name: 'Pt', value: 'Potosi'}, {name: 'Tj', value: 'Tarija'}, {name: 'St', value: 'Santa Cruz'}]
 
   cities = [
     { name: 'New York', code: 'NY' },
@@ -66,7 +69,7 @@ export default class EmployesComponent {
   ];
   selectedCity: any | undefined;
 
-  constructor(private fb: FormBuilder, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService) {
+  constructor(private fb: FormBuilder, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private tipodocService: TipodocService) {
     this.fg = this.fb.group({
       username: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       password: new FormControl('', { validators: [Validators.required], nonNullable: true}),
@@ -89,24 +92,28 @@ export default class EmployesComponent {
     });
     this.loadCargo();
     this.loadTipoEmpleado();
+    this.loadTipoDoc();
   }
   async loadCargo() {
     await this.cargoService.getAll()
       .subscribe({
-        next: (t: any) => {
-          console.log(t)
-          this.itemsCargo.set(t)},
+        next: (t: any) => this.itemsCargo.set(t),
         error: (err: any) => {console.log(err)},
       });
   }
   async loadTipoEmpleado() {
     await this.tipoempleadoService.getAll()
       .subscribe({
-        next: (t: any) => {
-          console.log("ppp: ", t);
-          this.itemsTipoempleado.set(t)},
+        next: (t: any) => this.itemsTipoempleado.set(t),
         error: (err) =>{console.log(err)}
       });
+  }
+  async loadTipoDoc() {
+    await this.tipodocService.getAll()
+      .subscribe({
+        next: (t: any) => this.itemsTipodoc.set(t),
+        error: ((err: Error) => console.log(err))
+      })
   }
   toggleSidebar() {
     this.visible = !this.visible;

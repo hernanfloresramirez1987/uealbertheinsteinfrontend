@@ -16,7 +16,7 @@
 <div class="grid p-fluid">
   <div class="col-12 md:col-6">
     <div class="card">
-      <h5>InputText</h5>
+      <h5>Datos de acceso</h5>
       <div class="grid formgrid pb-4">
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
@@ -32,18 +32,24 @@
         </div>
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
-            <p-multiSelect [options]="itemsCargo()" optionLabel="descrip"></p-multiSelect>
-            <label for="idcargo">Select Cargo</label>
+            <p-multiSelect [options]="itemsTipoempleado()" optionLabel="descrip"></p-multiSelect>
+            <label for="idcargo">Select Rol</label>
           </span>
         </div>
       </div>
       <div class="grid formgrid pb-0">
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
-            <p-dropdown [options]="itemsTipoempleado()" placeholder="Select type Document" optionLabel="descrip" class="p-inputtext-sm" ></p-dropdown>
-            <label for="idtipo">Select a Tipo</label>
+            <p-dropdown [options]="itemsTipodoc()" placeholder="Select type Document" optionLabel="abreviatura" class="p-inputtext-sm" ></p-dropdown>
+            <label for="idtipo">Select Tipo doc</label>
           </span>
         </div>
+        <!-- <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsCargo()" placeholder="Select type Document" optionLabel="descrip" class="p-inputtext-sm" ></p-dropdown>
+            <label for="idtipo">Select a Cargo</label>
+          </span>
+        </div> -->
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
             <input pInputText class="p-inputtext-sm" />
@@ -67,6 +73,26 @@
   <div class="col-12 md:col-6">
     <div class="card">
       <h5>Datos Personales</h5>
+      <div class="grid formgrid pb-4">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipodoc()" placeholder="Select type Document" optionLabel="abreviatura" class="p-inputtext-sm" ></p-dropdown>
+            <label for="idtipo">Select Tipo doc</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" />
+            <label for="nombre">No Documento</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsExtdocs" placeholder="Select type Document" optionLabel="name" class="p-inputtext-sm" ></p-dropdown>
+            <label for="idtipo">Select Extension</label>
+          </span>
+        </div>
+      </div>
       <div class="grid formgrid pb-4">
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <span class="p-float-label">
@@ -96,11 +122,11 @@
         </div>
         <div class="col-12 mb-2 lg:col-4 lg:mb-0">
           <div class="flex align-items-center">
-            <!-- <p-radioButton name="sexo" value="Varon"> </p-radioButton> -->
+            <p-radioButton id="sexo" name="sexo" label="sss" value="Varon"> </p-radioButton>
             <label for="masculino" class="ml-2">Varon</label>
           </div>
           <div class="flex align-items-center">
-              <!-- <p-radioButton name="sexo" value="Mujer"> </p-radioButton> -->
+              <p-radioButton id="sexo" name="sexo" value="Mujer"> </p-radioButton>
               <label for="femenino" class="ml-2">Mujer</label>
           </div>
         </div>
