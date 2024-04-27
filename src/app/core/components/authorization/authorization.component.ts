@@ -4,11 +4,12 @@ import { TipoempleadoService } from '../../services/tipoempleado.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-authorization',
   standalone: true,
-  imports: [HttpClientModule, MultiSelectModule, DropdownModule, ButtonModule],
+  imports: [RouterModule, HttpClientModule, MultiSelectModule, DropdownModule, ButtonModule],
   providers: [TipoempleadoService],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.css'
@@ -16,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 export default class AuthorizationComponent {
   itemsTipoempleado = signal([]);
 
-  constructor(private tipoempleadoService: TipoempleadoService) {
+  constructor(private tipoempleadoService: TipoempleadoService, private router: Router) {
     this.loadTipoEmpleado();
   }
 
@@ -27,4 +28,5 @@ export default class AuthorizationComponent {
         error: (err) =>{console.log(err)}
       });
   }
+  goDashboard = () => this.router.navigate(['/dashboard']);
 }
