@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+// import { CommonModule } from '@angular/common';
 
 import { EmployesRoutingModule } from './employes-routing.module';
 import { SidebarModule } from 'primeng/sidebar';
@@ -11,15 +11,13 @@ import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   imports: [
-    CommonModule,
+    // CommonModule,
     ReactiveFormsModule, FormsModule, CardModule, InputTextModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, RadioButtonModule, SidebarModule,
-    EmployesRoutingModule,
-    HttpClientModule
+    EmployesRoutingModule
   ]
 })
 export class EmployesModule { }
