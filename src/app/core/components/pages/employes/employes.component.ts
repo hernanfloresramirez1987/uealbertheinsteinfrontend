@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { PersonalDto } from '../../../models/personalDto.model';
-import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule, NgControl } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
@@ -11,20 +11,20 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CargoService } from '../../../services/cargo.service';
-import { HttpClientModule } from '@angular/common/http';
 import { TipoempleadoService } from '../../../services/tipoempleado.service';
-import { CommonModule } from '@angular/common';
+// import { CommonModule } from '@angular/common';
 import { TipodocService } from '../../../services/tipodoc.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-employes',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, HttpClientModule],
+  imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule],
   providers: [CargoService, TipoempleadoService, TipodocService],
   templateUrl: './employes.component.html',
   styleUrl: './employes.component.css'
 })
-export default class EmployesComponent {
+export default class EmployesComponent implements OnInit {
   visible: boolean = false;
   dataDtoEmployes: PersonalDto = {} as PersonalDto;
   fg!: FormGroup<{
@@ -94,10 +94,23 @@ export default class EmployesComponent {
     this.loadTipoEmpleado();
     this.loadTipoDoc();
   }
+  ngOnInit(): void {
+    this.initForm();
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+  }
+  initForm = () => {
+    console.log(9999999);
+    this.fg.valueChanges.subscribe({
+      next: (t) => console.log(t),
+      error: (e) => console.log(e)
+    })
+  }
   async loadCargo() {
     await this.cargoService.getAll()
       .subscribe({
-        next: (t: any) => this.itemsCargo.set(t),
+        next: (t: any) => {this.itemsCargo.set(t); console.log(t)},
         error: (err: any) => {console.log(err)},
       });
   }
