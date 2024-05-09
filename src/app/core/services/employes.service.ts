@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,5 +11,10 @@ export class EmployesService {
 
   constructor(private http: HttpClient) { }
 
-  // getAll = () => this.http.get(`${this.url}tipoempleado`);
+  getAllEmployes = () => this.http.get(`${this.url}tipoempleado`);
+
+  saveEmploye(dataEmploye: any): Observable<any> {
+    console.log(dataEmploye);
+    return this.http.post(`${this.url}empleado`, dataEmploye);
+  }
 }

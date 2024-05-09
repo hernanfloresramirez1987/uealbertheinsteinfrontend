@@ -7,6 +7,9 @@
 /* @import "primeng/resources/primeng.min.css"; */
 @import "primeflex/primeflex.scss";
 /* @import "primeng/resources/primeng.css"; */
+/* PrimeNG */
+@import "primeng/resources/primeng.min.css";
+/* @import "../node_modules/primeicons/primeicons.css"; */
 /*
 * {
     margin: 0;

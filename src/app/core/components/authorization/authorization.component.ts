@@ -23,7 +23,10 @@ export default class AuthorizationComponent {
   async loadTipoEmpleado() {
     await this.tipoempleadoService.getAll()
       .subscribe({
-        next: (t: any) => this.itemsTipoempleado.set(t),
+        next: (t: any) => {
+          console.log(t);
+          this.itemsTipoempleado.set(t)
+        },
         error: (err) =>{console.log(err)}
       });
   }

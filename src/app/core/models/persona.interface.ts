@@ -1,7 +1,8 @@
 export interface Persona  {
-  id: number;
-  doc: string;
+  idPer?: number;
   tipodoc: number;
+  doc: string;
+  extdoc: number;
   nombre: string;
   app: string;
   apm: string;
