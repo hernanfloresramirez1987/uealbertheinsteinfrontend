@@ -5,10 +5,10 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class TipodocService {
+export class ExtdocService {
   private readonly url: string = `${environment.URL_API}`;
 
   constructor(private http: HttpClient) { }
 
-  getAllTipoDoc = () => this.http.get(`${this.url}tipodoc`);
+  getAllExtDocs = () => this.http.get(`${this.url}extdoc`)
 }

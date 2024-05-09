@@ -5,10 +5,11 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class TipodocService {
+export class RolService {
+
   private readonly url: string = `${environment.URL_API}`;
 
   constructor(private http: HttpClient) { }
 
-  getAllTipoDoc = () => this.http.get(`${this.url}tipodoc`);
+  getAllRols = () => {return this.http.get(`${this.url}rol`)};
 }

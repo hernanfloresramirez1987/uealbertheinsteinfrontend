@@ -20,6 +20,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
+import { AppConfigModule } from './config/config.module';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,7 @@ import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
         RippleModule,
         RouterModule,
         TooltipModule,
-        // AppConfigModule,
+        AppConfigModule,
         TranslateModule
     ],
     exports: [AppLayoutComponent]
