@@ -11,7 +11,9 @@ export class EmployesService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEmployes = () => this.http.get(`${this.url}tipoempleado`);
+  getAllEmployes() {
+    return this.http.get(`${this.url}empleado`);
+  }
 
   saveEmploye(dataEmploye: any): Observable<any> {
     console.log(dataEmploye);
