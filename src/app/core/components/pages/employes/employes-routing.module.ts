@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadComponent: () => import('./employes.component') },
+  { path: 'register', loadComponent: () => import('./employes-register/employes-register.component') },
 ];
 
 @NgModule({
