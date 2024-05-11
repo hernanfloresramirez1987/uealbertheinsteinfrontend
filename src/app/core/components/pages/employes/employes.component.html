@@ -11,7 +11,7 @@
     [rowsPerPageOptions]="[15, 30, 50, 100, 200]"
     styleClass="p-datatable-sm"
     [lazy]="true"
-    [columns]="['col1','col2','col3']"
+    [columns]="['id','idper','idtipo', 'idcargo', 'salario', 'fing']"
     [totalRecords]="777"
     responsiveLayout="scroll"
     [sortMode]="'multiple'"
@@ -28,9 +28,14 @@
       <tr>
         <th style="width: 1rem"></th>
         @for (item of columns; track item) {
-          @switch (item) {
-            @case("category | category_id") {
-              <th style="min-width: 16rem" [pSortableColumn]="'category'" pReorderableColumn>
+          <th style="min-width: 16rem" [pSortableColumn]="item" pReorderableColumn>
+            <div class="flex justify-content-between align-items-left">{{"labels." + item}}
+              <p-sortIcon [field]="item.field"></p-sortIcon>
+            </div>
+          </th>
+          <!-- @switch (item) {
+            @case("idtipo") {
+              <th style="min-width: 16rem" [pSortableColumn]="'idtipo'" pReorderableColumn>
                 <div class="flex justify-content-between align-items-left">{{"labels.category"}}
                   <p-sortIcon [field]="item.field"></p-sortIcon>
                 </div>
@@ -50,7 +55,7 @@
                 </div>
               </th>
             }
-          }
+          } -->
         }
       </tr>
       <tr>
@@ -63,16 +68,18 @@
             <shipedge-filter-input field="qty" />
           </th> -->
           @for (item of cols; track item) {
+            <th>{{item}}</th>
             <!-- <th> -->
-            @switch (item) {
+            <!-- @switch (item) { -->
               <!-- @case("account") { <th style="min-width: 12rem"><shipedge-filter-multiselect [valores]="accounts()" [field]="'account_id'" type="Select accounts" columna="company_name" /></th> } -->
               <!-- @case("category") { <th style="min-width: 12rem"><shipedge-filter-multiselect [valores]="categories()" [field]="'category_id'" type="Select categories" columna="category"/></th> } -->
               <!-- @case("bin_qty_max") { <th style="min-width: 12rem"><shipedge-filter-input field="bin_qty_max"/></th> } -->
               <!-- @case("bin_qty_min") { <th style="min-width: 12rem"><shipedge-filter-input field="bin_qty_min"/></th> } -->
-              @default {
-                <th style="min-width: 12rem">
-                </th> }
-            }
+              <!-- @default { -->
+                <!-- <th style="min-width: 12rem"> -->
+                  <!-- {{ item | json}} -->
+                <!-- </th> } -->
+            <!-- } -->
             <!-- </th> -->
           }@empty { <th style="min-width: 12rem">cargando</th> }
           <!-- <th style="min-width: 12rem">
@@ -82,14 +89,15 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded">
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td class="flex">
+        <td>
           <p-tableCheckbox class="p-2"  [value]="rowData"></p-tableCheckbox>
           <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text" > </button>
         </td>
-        @for (item of columns; track item) {
+        @for (item of columns; track $index) {
           <td>{{rowData[item]}}</td>
         }
+      </tr>
     </ng-template>
 </p-table>

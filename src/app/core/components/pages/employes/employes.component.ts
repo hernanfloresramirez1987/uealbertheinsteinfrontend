@@ -2,11 +2,12 @@ import { Component, OnInit, signal } from '@angular/core';
 import { EmployesService } from '../../../services/employes.service';
 import { JsonPipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-employes',
   standalone: true,
-  imports: [JsonPipe, TableModule],
+  imports: [JsonPipe, ButtonModule, TableModule],
   templateUrl: './employes.component.html',
   styleUrl: './employes.component.css'
 })
@@ -15,7 +16,7 @@ export default class EmployesComponent implements OnInit {
   employes = [];
 
   constructor(private employesService: EmployesService) {
-    console.log(1111)
+    // console.log(1111)
   }
 
   ngOnInit(): void {

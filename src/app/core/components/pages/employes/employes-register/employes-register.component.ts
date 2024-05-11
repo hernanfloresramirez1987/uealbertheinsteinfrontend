@@ -20,11 +20,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { ExtdocService } from '../../../../services/extdoc.service';
 import { P_A_Personal } from '../../../../models/pa_personal.interface';
 import { EmployesService } from '../../../../services/employes.service';
+import { Router, RouterModule } from '@angular/router';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-employes-register',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, FloatLabelModule],
+  imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, FloatLabelModule, RouterModule],
   providers: [CargoService, TipoempleadoService, TipodocService, DatePipe],
   templateUrl: './employes-register.component.html',
   styleUrl: './employes-register.component.css'
@@ -82,7 +84,7 @@ export default class EmployesRegisterComponent implements OnInit {
   ];
   selectedCity: any | undefined;
 
-  constructor(private fb: FormBuilder, private employesService: EmployesService, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private extdocService: ExtdocService, private tipodocService: TipodocService, private rolService: RolService, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private employesService: EmployesService, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private extdocService: ExtdocService, private tipodocService: TipodocService, private rolService: RolService, private datePipe: DatePipe, private router: Router) {
     this.fg = this.fb.group({
       username: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       password: new FormControl('', { validators: [Validators.required], nonNullable: true}),
@@ -98,7 +100,7 @@ export default class EmployesRegisterComponent implements OnInit {
       estadociv: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       dir: new FormControl('', { validators: [Validators.required], nonNullable: true}),
       telcel: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      email: new FormControl('', { validators: [Validators.required], nonNullable: true}),
+      email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true}),
       idtipo: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
       idcargo: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
       // fing: new FormControl('', { validators: [Validators.required], nonNullable: true}),
@@ -114,37 +116,38 @@ export default class EmployesRegisterComponent implements OnInit {
     this.initForm();
   }
   initForm = () => {
-    setTimeout(() => {
-
-    this.fg.valueChanges.subscribe({
-      next: (t: any) => {
-        console.log(t)
-        this.dataDtoEmployes = {
-          u_username: t.username,
-          u_password: t.password,
-          u_rol: (t.rol.length > 0) ? t.rol[0].id : t.rol,
-          p_doc: t.doc,
-          p_tipodoc: t.tipodoc.id,
-          p_extdoc: t.extdoc.id,
-          p_nombre: t.nombre,
-          p_app: t.app,
-          p_apm: t.apm,
-          p_fnaci: (t.fnaci) ? this.formatearFecha(t.fnaci) : '',
-          p_sexo: t.sexo,
-          p_estadociv: t.estadociv.name,
-          p_dir: t.dir,
-          p_telcel: t.telcel,
-          p_email: t.email,
-          e_idcargo: t.idcargo.id,
-          e_idtipo: t.idtipo.id,
-          e_fing: '',
-          e_salario: t.salario
-        }
-        console.log(this.dataDtoEmployes);
-      },
-      error: (e) => console.log(e)
-    }); //console.log(this.fg.value);
-  });
+    // setTimeout(() => {
+      this.fg.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe({
+        next: (t: any) => {
+          console.log(t)
+          this.dataDtoEmployes = {
+            u_username: t.username,
+            u_password: t.password,
+            u_rol: (t.rol.length > 0) ? t.rol[0].id : t.rol,
+            p_doc: t.doc,
+            p_tipodoc: t.tipodoc.id,
+            p_extdoc: t.extdoc.id,
+            p_nombre: t.nombre,
+            p_app: t.app,
+            p_apm: t.apm,
+            p_fnaci: (t.fnaci) ? this.formatearFecha(t.fnaci) : '',
+            p_sexo: t.sexo,
+            p_estadociv: t.estadociv.name,
+            p_dir: t.dir,
+            p_telcel: t.telcel,
+            p_email: t.email,
+            e_idcargo: t.idcargo.id,
+            e_idtipo: t.idtipo.id,
+            e_fing: '',
+            e_salario: t.salario
+          }
+          console.log(this.dataDtoEmployes);
+        },
+        error: (e) => console.log(e)
+      }); //console.log(this.fg.value);
+    // }, 1000);
   }
   async loadCargo() {
     await this.cargoService.getAll()
@@ -188,7 +191,13 @@ export default class EmployesRegisterComponent implements OnInit {
     console.log(this.fg.value);
     console.log(this.dataDtoEmployes);
     this.employesService.saveEmploye(this.dataDtoEmployes)
-      .subscribe(t => console.log(t));
+      .subscribe(t => {
+        console.log(t.status)
+        console.log(t)
+        if(t.status === '201') {
+          this.router.navigate(['/employes']);
+        }
+      });
   }
 
   formatearFecha(fecha: Date | null): string {
