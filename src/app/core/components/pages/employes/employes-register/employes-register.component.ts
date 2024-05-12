@@ -187,7 +187,14 @@ export default class EmployesRegisterComponent implements OnInit {
   toggleSidebar() {
     this.visible = !this.visible;
   }
-  saveData = () => {
+
+  savePromise() {
+    this.employesService.savePromise(this.dataDtoEmployes)
+      .then((t) => {
+        console.log(t);
+      })
+  }
+  saveDataObservable = () => {
     console.log(this.fg.value);
     console.log(this.dataDtoEmployes);
     this.employesService.saveEmploye(this.dataDtoEmployes)
