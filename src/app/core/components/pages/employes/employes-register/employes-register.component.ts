@@ -118,7 +118,7 @@ export default class EmployesRegisterComponent implements OnInit {
   initForm = () => {
     // setTimeout(() => {
       this.fg.valueChanges
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(2000))
       .subscribe({
         next: (t: any) => {
           console.log(t)
@@ -187,17 +187,31 @@ export default class EmployesRegisterComponent implements OnInit {
   toggleSidebar() {
     this.visible = !this.visible;
   }
-  saveData = () => {
+
+  savePromise() {
+    this.employesService.savePromise(this.dataDtoEmployes)
+      .then((t) => {
+        console.log(t);
+        console.log(t.status);
+        if(t.status === '201') {
+          // this.router.navigate(['/employes']);
+          console.log("Se registro exitosamente")
+        }
+      })
+  }
+  saveDataObservable = () => {
     console.log(this.fg.value);
     console.log(this.dataDtoEmployes);
-    this.employesService.saveEmploye(this.dataDtoEmployes)
+    const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
       .subscribe(t => {
-        console.log(t.status)
         console.log(t)
+        console.log(t.status)
         if(t.status === '201') {
-          this.router.navigate(['/employes']);
+          // this.router.navigate(['/employes']);
+          console.log("Se registro exitosamente")
         }
       });
+    aux.unsubscribe();
   }
 
   formatearFecha(fecha: Date | null): string {
