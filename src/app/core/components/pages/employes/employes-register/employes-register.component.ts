@@ -129,7 +129,7 @@ export default class EmployesRegisterComponent implements OnInit {
           this.dataDtoEmployes = {
             u_username: t.username,
             u_password: t.password,
-            u_rol: (t.rol.length > 0) ? t.rol[0].id : t.rol,
+            u_rol: (t.rol && t.rol.length > 0) ? t.rol[0].id : t.rol,
             p_doc: t.doc,
             p_tipodoc: t.tipodoc.id,
             p_extdoc: t.extdoc.id,
