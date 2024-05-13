@@ -32,8 +32,8 @@ export default class LoginComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.fg = this.fb.group({
-      username: new FormControl('', { validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)]}),
-      password: new FormControl('', { validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)]}),
+      username: new FormControl('', { validators: [Validators.required]}), //, Validators.minLength(6), Validators.maxLength(20)]}),
+      password: new FormControl('', { validators: [Validators.required]}), //, Validators.minLength(6), Validators.maxLength(20)]}),
     });
     this.startTimer();
   }
@@ -62,9 +62,11 @@ export default class LoginComponent {
   login() {
     const {username, password } = this.fg.value;
     console.log(username, password);
-    // this.authService.login(this.fg.value.username, this.fg.value.password)
-    //   .subscribe(t => {
-    //     console.log('respuesta: ', t);
-    //   })
+    if(username && password) {
+    this.authService.login(username, password)
+      .subscribe(t => {
+        console.log('respuesta: ', t);
+      })
+    }
   }
 }
