@@ -8,15 +8,15 @@
         <form [formGroup]="fg" action="#">
             <div class="input-box animation" style="--i:1;  --j:22;">
               <span class="p-float-label">
-                <input pInputText class="p-inputtext-sm" />
-                <label for="username" class="pb-4" formControlName="username">Username</label>
+                <input pInputText class="p-inputtext-sm" formControlName="username" required/>
+                <label for="username" class="pb-4">Username</label>
               </span>
                 <i class="bx bxs-user"></i>
             </div>
             <div class="input-box animation" style="--i:2;  --j:23;">
               <span class="p-float-label">
-                <input pInputText class="p-inputtext-sm" type="password" required>
-                <label for="password" class="pb-4"formControlName="password">Password</label>
+                <input pInputText class="p-inputtext-sm" type="password" formControlName="password" required>
+                <label for="password" class="pb-4">Password</label>
               </span>
                 <i class="bx bxs-lock-alt"></i>
             </div>
