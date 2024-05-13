@@ -9,18 +9,23 @@
             <div class="input-box animation" style="--i:1;  --j:22;">
               <span class="p-float-label">
                 <input pInputText class="p-inputtext-sm" />
-                <label for="username" class="pb-4">Username</label>
+                <label for="username" class="pb-4" formControlName="username">Username</label>
               </span>
                 <i class="bx bxs-user"></i>
             </div>
             <div class="input-box animation" style="--i:2;  --j:23;">
               <span class="p-float-label">
                 <input pInputText class="p-inputtext-sm" type="password" required>
-                <label for="password" class="pb-4">Password</label>
+                <label for="password" class="pb-4"formControlName="password">Password</label>
               </span>
                 <i class="bx bxs-lock-alt"></i>
             </div>
-            <button class="btn animation" style="--i:3;  --j:24;" (click)="login()">Login</button>
+            @if (fg.valid) {
+              <button class="btn animation" style="--i:3;  --j:24;" (click)="login()">Login</button>
+            } @else {
+              <button class="btn animation" style="--i:3;  --j:24;" [disabled]="true">Login</button>
+            }
+
             <div class="logreg-link animation" style="--i:4;  --j:25;">
                 <!-- <p>Don't have an account? <b (click)="toggleActive()" class="register-link">Sign Up</b></p> -->
                 <p>Don't have an account? <a routerLink="/restorepassword" class="register-link">Sign Up</a></p>
