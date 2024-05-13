@@ -229,9 +229,10 @@ export default class EmployesRegisterComponent implements OnInit {
     this.employesService.savePromise(this.dataDtoEmployes)
       .then((t) => {
         console.log(t);
-        console.log(t[0][0]);
-        if(t[0][0].Status === '201') {
-          // this.router.navigate(['/employes']);
+        console.log(t[0][0].Status);
+        console.log(t[0][0].status);
+        if(t[0][0].status === 201) {
+          this.router.navigate(['/employes']);
           console.log("Se registro exitosamente")
         }
       })
