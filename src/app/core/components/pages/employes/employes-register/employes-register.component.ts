@@ -229,27 +229,27 @@ export default class EmployesRegisterComponent implements OnInit {
     this.employesService.savePromise(this.dataDtoEmployes)
       .then((t) => {
         console.log(t);
-        console.log(t.status);
-        if(t[0].Status === '201') {
+        console.log(t[0][0]);
+        if(t[0][0].Status === '201') {
           // this.router.navigate(['/employes']);
           console.log("Se registro exitosamente")
         }
       })
   }
-  saveDataObservable() {
-    console.log(this.fg.value);
-    console.log(this.dataDtoEmployes);
-    const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
-      .subscribe(t => {
-        console.log(t)
-        console.log(t.status)
-        if(t.status === '201') {
-          console.log("Se registro exitosamente")
-          this.router.navigate(['/employes']);
-        }
-      });
-    aux.unsubscribe();
-  }
+  // saveDataObservable() {
+  //   console.log(this.fg.value);
+  //   console.log(this.dataDtoEmployes);
+  //   const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
+  //     .subscribe(t => {
+  //       console.log(t)
+  //       console.log(t.status)
+  //       if(t.status === '201') {
+  //         console.log("Se registro exitosamente")
+  //         this.router.navigate(['/employes']);
+  //       }
+  //     });
+  //   aux.unsubscribe();
+  // }
 
   formatearFecha(fecha: Date | null): string {
     if (fecha) {
