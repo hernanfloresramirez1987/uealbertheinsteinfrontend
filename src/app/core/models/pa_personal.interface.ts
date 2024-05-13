@@ -14,7 +14,7 @@ export interface P_A_Personal {
   p_dir: string;
   p_telcel: string;
   p_email: string;
-  e_idtipo: number;
+  e_formacion: number;
   e_idcargo: number;
   e_fing: string;
   e_salario: number;

@@ -55,7 +55,6 @@ export default class EmployesRegisterComponent implements OnInit {
 
     idtipo: FormControl<number | null>,
     idcargo: FormControl<number | null>,
-    // fing: FormControl<string>,
     salario: FormControl<number | null>
   }>;
 
@@ -143,7 +142,7 @@ export default class EmployesRegisterComponent implements OnInit {
             p_telcel: t.telcel,
             p_email: t.email,
             e_idcargo: t.idcargo.id,
-            e_idtipo: t.idtipo.id,
+            e_formacion: t.idtipo.id,
             e_fing: '',
             e_salario: t.salario
           }
@@ -154,7 +153,7 @@ export default class EmployesRegisterComponent implements OnInit {
   }
 
   changeDoc(doc: string) {
-    console.log("doc::::::: ", doc);
+    console.log("doc::::::: ", doc, this.stateSearchCI);
     // this.searchCI(doc);
     const docControl = this.fg.get('doc') as FormControl;
     docControl.valueChanges
