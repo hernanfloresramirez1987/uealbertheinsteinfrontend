@@ -260,5 +260,6 @@ export default class EmployesRegisterComponent implements OnInit {
 
   clear () {
     this.fg.reset();
+    this.stateSearchCI = false;
   }
 }
