@@ -230,7 +230,7 @@ export default class EmployesRegisterComponent implements OnInit {
       .then((t) => {
         console.log(t);
         console.log(t.status);
-        if(t.status === '201') {
+        if(t[0].Status === '201') {
           // this.router.navigate(['/employes']);
           console.log("Se registro exitosamente")
         }
