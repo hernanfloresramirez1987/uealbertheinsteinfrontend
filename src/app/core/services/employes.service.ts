@@ -20,6 +20,7 @@ export class EmployesService {
     return this.http.post(`${this.url}empleado`, dataEmploye);
   }
   savePromise(dataEmploye: any): Promise<any> {
+    console.log(dataEmploye);
     return this.http.post(`${this.url}empleado`, dataEmploye).toPromise();
   }
 }

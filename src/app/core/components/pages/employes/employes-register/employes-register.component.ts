@@ -22,6 +22,7 @@ import { P_A_Personal } from '../../../../models/pa_personal.interface';
 import { EmployesService } from '../../../../services/employes.service';
 import { Router, RouterModule } from '@angular/router';
 import { debounceTime } from 'rxjs';
+import { PersonaService } from '../../../../services/persona.service';
 
 @Component({
   selector: 'app-employes-register',
@@ -35,27 +36,27 @@ export default class EmployesRegisterComponent implements OnInit {
   visible: boolean = false;
   dataDtoEmployes: P_A_Personal = {} as P_A_Personal;
   fg!: FormGroup<{
-    username: FormControl<string>,
-    password: FormControl<string>,
-    rol: FormControl<number>,
+    username: FormControl<string | null>,
+    password: FormControl<string | null>,
+    rol: FormControl<number | null>,
 
-    tipodoc: FormControl<number>,
-    doc: FormControl<string>,
-    extdoc: FormControl<number>,
-    nombre: FormControl<string>,
-    app: FormControl<string>,
-    apm: FormControl<string>,
-    fnaci: FormControl<string>,
-    sexo: FormControl<boolean>,
-    estadociv: FormControl<string>,
-    dir: FormControl<string>,
-    telcel: FormControl<string>,
-    email: FormControl<string>,
+    tipodoc: FormControl<number | null>,
+    doc: FormControl<string | null>,
+    extdoc: FormControl<number | null>,
+    nombre: FormControl<string | null>,
+    app: FormControl<string | null>,
+    apm: FormControl<string | null>,
+    fnaci: FormControl<string | null>,
+    sexo: FormControl<boolean | null>,
+    estadociv: FormControl<string | null>,
+    dir: FormControl<string | null>,
+    telcel: FormControl<string | null>,
+    email: FormControl<string | null>,
 
-    idtipo: FormControl<number>,
-    idcargo: FormControl<number>,
+    idtipo: FormControl<number | null>,
+    idcargo: FormControl<number | null>,
     // fing: FormControl<string>,
-    salario: FormControl<number>
+    salario: FormControl<number | null>
   }>;
 
   sexo: any[] = [ { name: 'Varon', value: true }, { name: 'Mujer', value: 0 }];
@@ -83,45 +84,48 @@ export default class EmployesRegisterComponent implements OnInit {
     { name: 'Paris', code: 'PRS' }
   ];
   selectedCity: any | undefined;
+  stateSearchCI: boolean = false;
 
-  constructor(private fb: FormBuilder, private employesService: EmployesService, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private extdocService: ExtdocService, private tipodocService: TipodocService, private rolService: RolService, private datePipe: DatePipe, private router: Router) {
-    this.fg = this.fb.group({
-      username: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      password: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      rol: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
-      tipodoc: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
-      extdoc: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
-      doc: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      nombre: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      app: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      apm: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      fnaci: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      sexo: new FormControl(true, { validators: [Validators.required], nonNullable: true}),
-      estadociv: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      dir: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      telcel: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      email: new FormControl('', { validators: [Validators.required, Validators.email], nonNullable: true}),
-      idtipo: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
-      idcargo: new FormControl(0, { validators: [Validators.required], nonNullable: true}),
-      // fing: new FormControl('', { validators: [Validators.required], nonNullable: true}),
-      salario: new FormControl(0, { validators: [Validators.required], nonNullable: true})
-    });
+  constructor(private fb: FormBuilder, private employesService: EmployesService, private personaService: PersonaService, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private extdocService: ExtdocService, private tipodocService: TipodocService, private rolService: RolService, private datePipe: DatePipe, private router: Router) {
     this.loadCargo();
     this.loadTipoEmpleado();
     this.loadTipoDoc();
     this.loadExtDoc();
     this.loadRols();
-  }
-  ngOnInit(): void {
     this.initForm();
   }
-  initForm = () => {
-    // setTimeout(() => {
-      this.fg.valueChanges
+  ngOnInit(): void {
+    this.onChangeForm();
+
+  }
+  initForm() {
+    this.fg = this.fb.group({
+      username: new FormControl('', { validators: [Validators.required]}),
+      password: new FormControl('', { validators: [Validators.required]}),
+      rol: new FormControl(0, { validators: [Validators.required]}),
+      tipodoc: new FormControl(0, { validators: [Validators.required]}),
+      extdoc: new FormControl(0, { validators: [Validators.required]}),
+      doc: new FormControl('', { validators: [Validators.required]}),
+      nombre: new FormControl('', { validators: [Validators.required]}),
+      app: new FormControl('', { validators: [Validators.required]}),
+      apm: new FormControl('', { validators: [Validators.required]}),
+      fnaci: new FormControl('', { validators: [Validators.required]}),
+      sexo: new FormControl(true, { validators: [Validators.required]}),
+      estadociv: new FormControl('', { validators: [Validators.required]}),
+      dir: new FormControl('', { validators: [Validators.required]}),
+      telcel: new FormControl('', { validators: [Validators.required]}),
+      email: new FormControl('', { validators: [Validators.required, Validators.email]}),
+      idtipo: new FormControl(0, { validators: [Validators.required]}),
+      idcargo: new FormControl(0, { validators: [Validators.required]}),
+      // fing: new FormControl('', { validators: [Validators.required]}),
+      salario: new FormControl(0, { validators: [Validators.required]})
+    });
+  }
+  onChangeForm() {
+    this.fg.valueChanges
       .pipe(debounceTime(2000))
       .subscribe({
-        next: (t: any) => {
-          console.log(t)
+        next: (t: any) => { console.log(t);
           this.dataDtoEmployes = {
             u_username: t.username,
             u_password: t.password,
@@ -143,12 +147,45 @@ export default class EmployesRegisterComponent implements OnInit {
             e_fing: '',
             e_salario: t.salario
           }
-          console.log(this.dataDtoEmployes);
+          console.log('doc: ', this.dataDtoEmployes, this.stateSearchCI);
         },
         error: (e) => console.log(e)
-      }); //console.log(this.fg.value);
-    // }, 1000);
+      });
   }
+
+  changeDoc(doc: string) {
+    console.log("doc::::::: ", doc);
+    // this.searchCI(doc);
+    const docControl = this.fg.get('doc') as FormControl;
+    docControl.valueChanges
+      .subscribe(t => {
+        console.log(t);
+        if (t !== '' && this.stateSearchCI === false) {
+          console.log('siiiiiiii');
+          this.searchCI(t);
+          // this.stateSearchCI = true;
+        } else {
+          console.log("nooooooooooooo")
+          this.stateSearchCI = (t === '')? false: true;
+        }
+      });
+  }
+
+  async searchCI(ci: string) {
+    await this.personaService.getOneEmployeCi(ci)
+      .pipe(debounceTime(2000))
+      .subscribe({
+        next: ((t: any) => {
+          console.log(t);
+          // if (this.stateSearchCI) {
+            this.stateSearchCI = true;
+            this.fg.patchValue(t);
+          // }
+        }),
+        error: ((err: any) => console.log(err))
+      })
+  }
+
   async loadCargo() {
     await this.cargoService.getAll()
       .subscribe({
@@ -199,7 +236,7 @@ export default class EmployesRegisterComponent implements OnInit {
         }
       })
   }
-  saveDataObservable = () => {
+  saveDataObservable() {
     console.log(this.fg.value);
     console.log(this.dataDtoEmployes);
     const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
@@ -207,8 +244,8 @@ export default class EmployesRegisterComponent implements OnInit {
         console.log(t)
         console.log(t.status)
         if(t.status === '201') {
-          // this.router.navigate(['/employes']);
           console.log("Se registro exitosamente")
+          this.router.navigate(['/employes']);
         }
       });
     aux.unsubscribe();
@@ -219,5 +256,9 @@ export default class EmployesRegisterComponent implements OnInit {
       return this.datePipe.transform(fecha, 'yyyy-MM-dd') || '';
     }
     return '';
+  }
+
+  clear () {
+    this.fg.reset();
   }
 }
