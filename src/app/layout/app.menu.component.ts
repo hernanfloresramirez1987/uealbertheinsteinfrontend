@@ -24,7 +24,11 @@ export class AppMenuComponent {
             ]
         },
         {
-          label: 'Administradores', icon: 'pi pi-align-left', routerLink: ['/employes']
+          label: 'Administradores', icon: 'pi pi-align-left',
+          ms: [
+            { label: 'SaaS', icon: 'pi pi-user', routerLink: ['/employes'] },
+            { label: 'Sales', icon: 'pi pi-user', routerLink: ['/employes/register'] }
+          ]
         },
         {
           label: 'Empleados', icon: 'pi pi-align-left',
@@ -34,45 +38,45 @@ export class AppMenuComponent {
         },
         {
             label: 'Other', icon: 'pi pi-align-left',
-            items: [
-                {
-                    label: 'Submenu 1', icon: 'pi pi-align-left',
-                    items: [
-                        {
-                            label: 'Submenu 1.1', icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' },
-                            ]
-                        },
-                        {
-                            label: 'Submenu 1.2', icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    label: 'Submenu 2', icon: 'pi pi-align-left',
-                    items: [
-                        {
-                            label: 'Submenu 2.1', icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
-                                { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
-                            ]
-                        },
-                        {
-                            label: 'Submenu 2.2', icon: 'pi pi-align-left',
-                            items: [
-                                { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
-                            ]
-                        },
-                    ]
-                }
-            ]
+            // items: [
+            //     {
+            //         label: 'Submenu 1', icon: 'pi pi-align-left',
+            //         items: [
+            //             {
+            //                 label: 'Submenu 1.1', icon: 'pi pi-align-left',
+            //                 items: [
+            //                     { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
+            //                     { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
+            //                     { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' },
+            //                 ]
+            //             },
+            //             {
+            //                 label: 'Submenu 1.2', icon: 'pi pi-align-left',
+            //                 items: [
+            //                     { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' }
+            //                 ]
+            //             },
+            //         ]
+            //     },
+            //     {
+            //         label: 'Submenu 2', icon: 'pi pi-align-left',
+            //         items: [
+            //             {
+            //                 label: 'Submenu 2.1', icon: 'pi pi-align-left',
+            //                 items: [
+            //                     { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
+            //                     { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
+            //                 ]
+            //             },
+            //             {
+            //                 label: 'Submenu 2.2', icon: 'pi pi-align-left',
+            //                 items: [
+            //                     { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
+            //                 ]
+            //             },
+            //         ]
+            //     }
+            // ]
         }
     ];
   }

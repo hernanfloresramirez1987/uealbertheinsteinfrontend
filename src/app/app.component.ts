@@ -15,6 +15,7 @@ export class AppComponent {
 
   constructor(private primengConfig: PrimeNGConfig) {
     this.primengConfig.ripple = true;
+    document.documentElement.style.fontSize = '12px';
   }
 
   title = 'uealbertheinstein_frontend';

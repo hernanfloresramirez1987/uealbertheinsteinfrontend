@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
 import { BadgeModule } from 'primeng/badge';
@@ -14,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { AppTopBarComponent } from './app.topbar.component';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppFooterComponent } from './app.footer.component';
-import { AppConfigModule } from './config/config.module';
 import { AppLayoutComponent } from './app.layout.component';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { StyleClassModule } from 'primeng/styleclass';
@@ -22,7 +19,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { MenuModule } from 'primeng/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
+import { AppConfigModule } from './config/config.module';
 
 @NgModule({
     declarations: [
@@ -35,10 +33,10 @@ import { CommonModule } from '@angular/common';
         AppBreadcrumbComponent
     ],
     imports: [
+      CommonModule,
         FormsModule,
-        HttpClientModule,
-        CommonModule,
-        // BrowserAnimationsModule,
+        UpperCasePipe,
+        NgClass,
         InputTextModule,
         InputSwitchModule,
         MenuModule,
