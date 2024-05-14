@@ -14,57 +14,42 @@ import { AuthService } from '../../../services/auth.service';
 export default class LoginComponent {
   @ViewChild('.wrapper') wrapper!: any;
 
-  // isActive: boolean = false;
   wrapperClass: string = ''; // Clase para el elemento wrapper
   visible: boolean = false;
-  backgroundColor: string = '#081b29'; // Color de fondo
-
-
+  //backgroundColor: string = '#081b29'; // Color de fondo
   isActive: boolean = true;
   fg!: FormGroup<{
     username: FormControl<string | null>,
     password: FormControl<string | null>,
   }>;
-  // fg: FormGroup = new FormGroup({
-  //   username: new FormControl(''),
-  //   password: new FormControl(''),
-  // });
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.fg = this.fb.group({
-      username: new FormControl('', { validators: [Validators.required]}), //, Validators.minLength(6), Validators.maxLength(20)]}),
-      password: new FormControl('', { validators: [Validators.required]}), //, Validators.minLength(6), Validators.maxLength(20)]}),
+      username: new FormControl('', { validators: [Validators.required]}),
+      password: new FormControl('', { validators: [Validators.required]}),
     });
     this.startTimer();
   }
-  startTimer(): void { //Para efectos de la interfaz
+  startTimer(): void {
     setTimeout(() => {
       this.isActive = !this.isActive;
-    }, 650); // Multiplicamos por 1000 para convertir el tiempo de segundos a milisegundos
+    }, 650);
   }
-  // registerLink = document.querySelector('.register-link');
-  // loginLink = document.querySelector('.login-link');
 
-  // Método para cambiar la clase del wrapper
   toggleActive(): void {
     this.isActive = !this.isActive;
     this.wrapperClass = this.isActive ? 'active' : '';
   }
 
-  // registerLink = () => {
-  //     this.wrapper.classList.add('active');
-  // }
-
-  // loginLink = () => {
-  //     this.wrapper.classList.remove('active');
-  // }
   async login() {
     const {username, password } = this.fg.value;
     console.log(username, password);
     if(username && password) {
     await this.authService.login(this.fg.value)
       .subscribe(t => {
-        console.log('respuesta: ', t);
+        if( t.status === 201) {
+          this.router.navigate(['/autorizationrol']);
+        }
       })
     }
   }

@@ -14,11 +14,11 @@ export class AuthService {
   login(dataLogin: any): Observable<any> {
     return this.http.post<any>(`${this.url}auth`, { username: dataLogin.username, password: dataLogin.password })
       .pipe(
-        map(t => {
-          console.log(t)
-          return t;
+        map(data => {
+          console.log(data);
+          if (data.status === 201) this.storeToken(data.token);
+          return data;
         }),
-        tap(data => this.storeToken(data.token)),
         catchError(this.handleError('login', []))
       );
   }
@@ -37,6 +37,7 @@ export class AuthService {
   }
 
   private storeToken(token: string): void {
+    console.log(token)
     localStorage.setItem('token', token);
   }
 
