@@ -37,10 +37,9 @@ export default class LoginComponent {
     });
     this.startTimer();
   }
-  startTimer(): void {
+  startTimer(): void { //Para efectos de la interfaz
     setTimeout(() => {
       this.isActive = !this.isActive;
-      console.log(9999999);
     }, 650); // Multiplicamos por 1000 para convertir el tiempo de segundos a milisegundos
   }
   // registerLink = document.querySelector('.register-link');
@@ -59,11 +58,11 @@ export default class LoginComponent {
   // loginLink = () => {
   //     this.wrapper.classList.remove('active');
   // }
-  login() {
+  async login() {
     const {username, password } = this.fg.value;
     console.log(username, password);
     if(username && password) {
-    this.authService.login(username, password)
+    await this.authService.login(this.fg.value)
       .subscribe(t => {
         console.log('respuesta: ', t);
       })

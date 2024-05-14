@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -11,9 +11,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.url}auth`, { username, password })
+  login(dataLogin: any): Observable<any> {
+    return this.http.post<any>(`${this.url}auth`, { username: dataLogin.username, password: dataLogin.password })
       .pipe(
+        map(t => {
+          console.log(t)
+          return t;
+        }),
         tap(data => this.storeToken(data.token)),
         catchError(this.handleError('login', []))
       );
