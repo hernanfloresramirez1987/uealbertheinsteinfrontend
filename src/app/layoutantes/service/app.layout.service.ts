@@ -33,11 +33,11 @@ export class LayoutService {
     _config: AppConfig = {
         ripple: false,
         inputStyle: 'outlined',
-        menuMode: 'slim',
+        menuMode: 'static',
         colorScheme: 'light',
         theme: 'indigo',
-        layoutTheme: 'colorScheme',
-        scale: 14,
+        layoutTheme: 'primaryColor',
+        scale: 12,
     };
 
     config = signal<AppConfig>(this._config);
@@ -71,7 +71,7 @@ export class LayoutService {
 
     constructor() {
         effect(() => {
-            const config = this.config();
+            const config = this._config;
             if (this.updateStyle(config)) {
                 this.changeTheme();
             }

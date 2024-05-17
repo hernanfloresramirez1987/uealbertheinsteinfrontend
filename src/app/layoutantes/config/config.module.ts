@@ -9,7 +9,7 @@ import { AppConfigComponent } from './app.config.component';
 
 @NgModule({
     imports: [
-        CommonModule,
+      CommonModule,
         FormsModule,
         SidebarModule,
         RadioButtonModule,

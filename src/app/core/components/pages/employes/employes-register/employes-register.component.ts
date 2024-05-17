@@ -55,7 +55,6 @@ export default class EmployesRegisterComponent implements OnInit {
 
     idtipo: FormControl<number | null>,
     idcargo: FormControl<number | null>,
-    // fing: FormControl<string>,
     salario: FormControl<number | null>
   }>;
 
@@ -129,7 +128,7 @@ export default class EmployesRegisterComponent implements OnInit {
           this.dataDtoEmployes = {
             u_username: t.username,
             u_password: t.password,
-            u_rol: (t.rol.length > 0) ? t.rol[0].id : t.rol,
+            u_rol: (t.rol && t.rol.length > 0) ? t.rol[0].id : t.rol,
             p_doc: t.doc,
             p_tipodoc: t.tipodoc.id,
             p_extdoc: t.extdoc.id,
@@ -143,7 +142,7 @@ export default class EmployesRegisterComponent implements OnInit {
             p_telcel: t.telcel,
             p_email: t.email,
             e_idcargo: t.idcargo.id,
-            e_idtipo: t.idtipo.id,
+            e_formacion: t.idtipo.id,
             e_fing: '',
             e_salario: t.salario
           }
@@ -154,7 +153,7 @@ export default class EmployesRegisterComponent implements OnInit {
   }
 
   changeDoc(doc: string) {
-    console.log("doc::::::: ", doc);
+    console.log("doc::::::: ", doc, this.stateSearchCI);
     // this.searchCI(doc);
     const docControl = this.fg.get('doc') as FormControl;
     docControl.valueChanges
@@ -229,27 +228,27 @@ export default class EmployesRegisterComponent implements OnInit {
     this.employesService.savePromise(this.dataDtoEmployes)
       .then((t) => {
         console.log(t);
-        console.log(t.status);
-        if(t[0].Status === '201') {
-          // this.router.navigate(['/employes']);
-          console.log("Se registro exitosamente")
-        }
-      })
-  }
-  saveDataObservable() {
-    console.log(this.fg.value);
-    console.log(this.dataDtoEmployes);
-    const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
-      .subscribe(t => {
-        console.log(t)
-        console.log(t.status)
-        if(t.status === '201') {
+        console.log(t[0][0].Status);
+        if(Number(t[0][0].Status) === 201) {
           console.log("Se registro exitosamente")
           this.router.navigate(['/employes']);
         }
-      });
-    aux.unsubscribe();
+      })
   }
+  // saveDataObservable() {
+  //   console.log(this.fg.value);
+  //   console.log(this.dataDtoEmployes);
+  //   const aux = this.employesService.saveEmploye(this.dataDtoEmployes)
+  //     .subscribe(t => {
+  //       console.log(t)
+  //       console.log(t.status)
+  //       if(t.status === '201') {
+  //         console.log("Se registro exitosamente")
+  //         this.router.navigate(['/employes']);
+  //       }
+  //     });
+  //   aux.unsubscribe();
+  // }
 
   formatearFecha(fecha: Date | null): string {
     if (fecha) {
@@ -260,5 +259,6 @@ export default class EmployesRegisterComponent implements OnInit {
 
   clear () {
     this.fg.reset();
+    this.stateSearchCI = false;
   }
 }

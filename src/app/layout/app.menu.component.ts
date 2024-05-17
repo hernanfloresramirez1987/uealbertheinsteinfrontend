@@ -24,7 +24,11 @@ export class AppMenuComponent {
             ]
         },
         {
-          label: 'Administradores', icon: 'pi pi-align-left', routerLink: ['/employes']
+          label: 'Administradores', icon: 'pi pi-align-left',
+          ms: [
+            { label: 'SaaS', icon: 'pi pi-user', routerLink: ['/employes'] },
+            { label: 'Sales', icon: 'pi pi-user', routerLink: ['/employes/register'] }
+          ]
         },
         {
           label: 'Empleados', icon: 'pi pi-align-left',
