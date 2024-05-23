@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
-import { PersonalDto } from '../../../../models/personalDto.model';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule, NgControl } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
@@ -13,17 +12,16 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CargoService } from '../../../../services/cargo.service';
 import { TipoempleadoService } from '../../../../services/tipoempleado.service';
-// import { CommonModule } from '@angular/common';
 import { RolService } from '../../../../services/rol.service';
 import { TipodocService } from '../../../../services/tipodoc.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ExtdocService } from '../../../../services/extdoc.service';
-import { P_A_Personal } from '../../../../models/pa_personal.interface';
 import { EmployesService } from '../../../../services/employes.service';
 import { Router, RouterModule } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { PersonaService } from '../../../../services/persona.service';
 import { FileUploadModule } from 'primeng/fileupload';
+import { P_A_Personal } from '../../../../models/pa_personal.interface';
 
 @Component({
   selector: 'app-employes-register',
@@ -31,7 +29,7 @@ import { FileUploadModule } from 'primeng/fileupload';
   imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, FloatLabelModule, RouterModule, FileUploadModule],
   providers: [CargoService, TipoempleadoService, TipodocService, DatePipe],
   templateUrl: './employes-register.component.html',
-  styleUrl: './employes-register.component.css'
+    styleUrl: './employes-register.component.css'
 }) //
 export default class EmployesRegisterComponent implements OnInit {
   visible: boolean = false;
@@ -226,9 +224,7 @@ export default class EmployesRegisterComponent implements OnInit {
         error: ((err: Error) => console.log(err))
       })
   }
-  toggleSidebar() {
-    this.visible = !this.visible;
-  }
+  toggleSidebar = () => this.visible = !this.visible;
 
   savePromise() {
     this.employesService.savePromise(this.dataDtoEmployes)

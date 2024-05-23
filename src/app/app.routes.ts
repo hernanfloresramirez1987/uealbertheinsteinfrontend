@@ -9,6 +9,8 @@ export const routes: Routes = [
       { path: 'autorizationrol', loadComponent: () => import('./core/components/authorization/authorization.component') },
       { path: 'dashboard', loadComponent: () => import('./core/components/dashboard-main/dashboard-main.component') },
       { path: 'employes', loadChildren: () => import('./core/components/pages/employes/employes.module').then(m => m.EmployesModule) },
+      { path: 'students', loadChildren: () => import('./core/components/pages/students/students.module').then(m => m.StudentsModule) },
+      { path: 'payments', loadChildren: () => import('./core/components/pages/payments/payments.module').then(m => m.PaymentsModule) },
     ]
   },
   { path: 'login', loadComponent: () => import('./core/components/auth/login/login.component') },

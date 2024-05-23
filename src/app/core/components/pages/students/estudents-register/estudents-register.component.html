@@ -1,0 +1,396 @@
+<p>estudents-register works!</p>
+<p-sidebar [(visible)]="visible" [blockScroll]="true" [dismissible]="false">
+  <div class="sidebar-header">
+    <button pButton type="button" icon="pi pi-arrow-left" (click)="toggleSidebar()" class="p-button-text"></button>
+  </div>
+  <div class="sidebar-content">
+    <!-- Contenido del menú -->
+    <ul class="menu">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/services">Services</a></li>
+      <!-- Agrega más elementos del menú según sea necesario -->
+    </ul>
+  </div>
+</p-sidebar>
+<form [formGroup]="fg">
+<div class="grid p-fluid">
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>Datos Personales del Estudiante</h5>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_doc" (ngModelChange)="changeDocEst($event)"/>
+            <label for="nombre">No Documento</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipodoc()" placeholder="Select extension Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_tipodoc"></p-dropdown>
+            <label for="float-label">Select Tipo doc</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsExtdocs()" placeholder="Select extensiob Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_extdoc"></p-dropdown>
+            <label for="float-label">Select Extension</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_nombre"/>
+            <label for="nombre">Nombres</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_app"/>
+            <label for="app">Apellido Paterno</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_apm"/>
+            <label for="apm">Apellido Materno</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-calendar formControlName="est_fnaci"></p-calendar>
+            <label for="fnaci">Fecha Naciminto</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">Sexo</span>
+          <div class="flex justify-content-center align-items-center mb-1">
+            <div class="flex align-items-center">
+              <p-radioButton id="est_sexo" name="est_sexo" value="Varon" formControlName="est_sexo"> </p-radioButton>
+              <label for="masculino" class="ml-2">Varon</label>
+            </div>
+            <div class="flex align-items-center">
+                <p-radioButton id="est_sexo" name="est_sexo" value="Mujer" formControlName="est_sexo"> </p-radioButton>
+                <label for="femenino" class="ml-2">Mujer</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_telcel"/>
+            <label for="telcel">Telefono/Celular</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsStadoCivil" placeholder="Select state civil" optionLabel="name" class="p-inputtext-sm" formControlName="est_estadociv" ></p-dropdown>
+            <label for="float-label">Select a Estado civil </label>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_email">
+            <label for="float-input" type="email">Email</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_dir">
+            <label for="float-input">Direccion</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>Datos Personales del Padre / 1er Tutor</h5>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_doc" (ngModelChange)="changeDocEst($event)"/>
+            <label for="nombre">No Documento</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipodoc()" placeholder="Select extension Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_tipodoc"></p-dropdown>
+            <label for="float-label">Select Tipo doc</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsExtdocs()" placeholder="Select extensiob Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_extdoc"></p-dropdown>
+            <label for="float-label">Select Extension</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_nombre"/>
+            <label for="nombre">Nombres</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_app"/>
+            <label for="app">Apellido Paterno</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_apm"/>
+            <label for="apm">Apellido Materno</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-calendar formControlName="est_fnaci"></p-calendar>
+            <label for="fnaci">Fecha Naciminto</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">Sexo</span>
+          <div class="flex justify-content-center align-items-center mb-1">
+            <div class="flex align-items-center">
+              <p-radioButton id="est_sexo" name="est_sexo" value="Varon" formControlName="est_sexo"> </p-radioButton>
+              <label for="masculino" class="ml-2">Varon</label>
+            </div>
+            <div class="flex align-items-center">
+                <p-radioButton id="est_sexo" name="est_sexo" value="Mujer" formControlName="est_sexo"> </p-radioButton>
+                <label for="femenino" class="ml-2">Mujer</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_telcel"/>
+            <label for="telcel">Telefono/Celular</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsStadoCivil" placeholder="Select state civil" optionLabel="name" class="p-inputtext-sm" formControlName="est_estadociv" ></p-dropdown>
+            <label for="float-label">Select a Estado civil </label>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_email">
+            <label for="float-input" type="email">Email</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_dir">
+            <label for="float-input">Direccion</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>Datos Personales de la Madre / 2do Tutor</h5>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_doc" (ngModelChange)="changeDocEst($event)"/>
+            <label for="nombre">No Documento</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipodoc()" placeholder="Select extension Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_tipodoc"></p-dropdown>
+            <label for="float-label">Select Tipo doc</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsExtdocs()" placeholder="Select extensiob Document" optionLabel="abreviatura" class="p-inputtext-sm" formControlName="est_extdoc"></p-dropdown>
+            <label for="float-label">Select Extension</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_nombre"/>
+            <label for="nombre">Nombres</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_app"/>
+            <label for="app">Apellido Paterno</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_apm"/>
+            <label for="apm">Apellido Materno</label>
+          </span>
+        </div>
+      </div>
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-calendar formControlName="est_fnaci"></p-calendar>
+            <label for="fnaci">Fecha Naciminto</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">Sexo</span>
+          <div class="flex justify-content-center align-items-center mb-1">
+            <div class="flex align-items-center">
+              <p-radioButton id="est_sexo" name="est_sexo" value="Varon" formControlName="est_sexo"> </p-radioButton>
+              <label for="masculino" class="ml-2">Varon</label>
+            </div>
+            <div class="flex align-items-center">
+                <p-radioButton id="est_sexo" name="est_sexo" value="Mujer" formControlName="est_sexo"> </p-radioButton>
+                <label for="femenino" class="ml-2">Mujer</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_telcel"/>
+            <label for="telcel">Telefono/Celular</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-3 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsStadoCivil" placeholder="Select state civil" optionLabel="name" class="p-inputtext-sm" formControlName="est_estadociv" ></p-dropdown>
+            <label for="float-label">Select a Estado civil </label>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid formgrid pb-5">
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_email">
+            <label for="float-input" type="email">Email</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="est_dir">
+            <label for="float-input">Direccion</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-12 md:col-6">
+    <div class="card">
+      <h5>Datos del empleado</h5>
+      <div class="grid formgrid pb-0">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsTipoempleado()" placeholder="Select Tipo de Formacion" optionLabel="nombre" class="p-inputtext-sm" formControlName="idtipo" ></p-dropdown>
+            <label for="float-label">Select Tipo de Formacion </label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <p-dropdown [options]="itemsCargo()" placeholder="Select Cargo" optionLabel="descrip" class="p-inputtext-sm" formControlName="idcargo"></p-dropdown>
+            <label for="float-label">Select a cargo </label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="salario" />
+            <label for="salario">Salario</label>
+          </span>
+        </div>
+      </div>
+      @if (fg.value) {
+        <div class="grid formgrid pb-0 pt-4">
+          <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+            <span class="p-float-label">
+              <input pInputText class="p-inputtext-sm" formControlName="nua">
+              <label for="float-input" type="email">Nua</label>
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="card">
+      <h5>Datos de acceso</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="username" />
+            <label for="username">Username</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <span class="p-float-label">
+            <input pInputText class="p-inputtext-sm" formControlName="password" type="password"/>
+            <label for="password">Password</label>
+          </span>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <p-floatLabel>
+            <p-multiSelect
+                inputId="float-label"
+                [options]="itemsRols()"
+                optionLabel="nombre"
+                formControlName="rol" />
+            <label for="float-label">Select Rols</label>
+          </p-floatLabel>
+        </div>
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <p-fileUpload
+            class="justify-content-center align-items-center"
+            name="demo[]"
+            url="https://www.primefaces.org/cdn/api/upload.php"
+            (onUpload)="onUpload($event)"
+            [multiple]="true"
+            accept="image/*"
+            maxFileSize="1000000"
+            styleClass="w-full">
+                <ng-template pTemplate="content">
+                  @if (uploadedFiles.length > 0) {
+                    <ul>
+                      @for (file of uploadedFiles; track $index) {}
+                        <li>
+                            {{ "file.name" }} - {{ "file.size" }} bytes
+                        </li>
+                    </ul>
+                  }
+                </ng-template>
+          </p-fileUpload>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+<div class="flex justify-content-center align-items-center mb-1">
+  <div><p-button [text]="true" severity="danger">Cancel</p-button></div>
+  <div><p-button [text]="true" severity="info" (click)="clear()">Limpiar</p-button></div>
+  <div>
+    @if (fg.valid) {
+      <!-- <p-button [text]="true" severity="primary" (click)="saveDataObservable()">Register</p-button> -->
+      <!-- <p-button [text]="true" severity="primary" (click)="savePromise()">Register</p-button> -->
+    } @else {
+      <p-button [text]="true" severity="primary" [disabled]="true">Register</p-button>
+    }
+  </div>
+</div>
+</form>
