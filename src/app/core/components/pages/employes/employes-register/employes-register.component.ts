@@ -157,8 +157,6 @@ export default class EmployesRegisterComponent implements OnInit {
   }
 
   changeDoc(doc: string) {
-    console.log("doc::::::: ", doc, this.stateSearchCI);
-    // this.searchCI(doc);
     const docControl = this.fg.get('doc') as FormControl;
     docControl.valueChanges
       .subscribe(t => {
@@ -166,7 +164,6 @@ export default class EmployesRegisterComponent implements OnInit {
         if (t !== '' && this.stateSearchCI === false) {
           console.log('siiiiiiii');
           this.searchCI(t);
-          // this.stateSearchCI = true;
         } else {
           console.log("nooooooooooooo")
           this.stateSearchCI = (t === '')? false: true;

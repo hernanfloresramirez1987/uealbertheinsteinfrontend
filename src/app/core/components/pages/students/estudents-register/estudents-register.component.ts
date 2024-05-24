@@ -20,6 +20,7 @@ import { PersonaService } from '../../../../services/persona.service';
 import { debounceTime } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ExtdocService } from '../../../../services/extdoc.service';
+import { EstudianteData, EstudianteForm, MainForm } from '../../../../models/pa_estudiante_2tutores.interface';
 
 @Component({
   selector: 'app-estudents-register',
@@ -33,46 +34,7 @@ export default class EstudentsRegisterComponent {
   visible: boolean = false;
   dataDtoEstudent2tuts: any = {} as any;
 
-  fg!: FormGroup<{
-    est_tipodoc: FormControl<number | null>,
-    est_doc: FormControl<string | null>,
-    est_extdoc: FormControl<number | null>,
-    est_nombre: FormControl<string | null>,
-    est_app: FormControl<string | null>,
-    est_apm: FormControl<string | null>,
-    est_fnaci: FormControl<string | null>,
-    est_sexo: FormControl<boolean | null>,
-    est_estadociv: FormControl<string | null>,
-    est_dir: FormControl<string | null>,
-    est_telcel: FormControl<string | null>,
-    est_email: FormControl<string | null>,
-
-    tut1_tipodoc: FormControl<number | null>,
-    tut1_doc: FormControl<string | null>,
-    tut1_extdoc: FormControl<number | null>,
-    tut1_nombre: FormControl<string | null>,
-    tut1_app: FormControl<string | null>,
-    tut1_apm: FormControl<string | null>,
-    tut1_fnaci: FormControl<string | null>,
-    tut1_sexo: FormControl<boolean | null>,
-    tut1_estadociv: FormControl<string | null>,
-    tut1_dir: FormControl<string | null>,
-    tut1_telcel: FormControl<string | null>,
-    tut1_email: FormControl<string | null>,
-
-    tut2_tipodoc: FormControl<number | null>,
-    tut2_doc: FormControl<string | null>,
-    tut2_extdoc: FormControl<number | null>,
-    tut2_nombre: FormControl<string | null>,
-    tut2_app: FormControl<string | null>,
-    tut2_apm: FormControl<string | null>,
-    tut2_fnaci: FormControl<string | null>,
-    tut2_sexo: FormControl<boolean | null>,
-    tut2_estadociv: FormControl<string | null>,
-    tut2_dir: FormControl<string | null>,
-    tut2_telcel: FormControl<string | null>,
-    tut2_email: FormControl<string | null>,
-  }>;
+  fg!: FormGroup;
   itemsStadoCivil = [
     {name: 'Soltero/a'},
     {name: 'Casado/a'},
@@ -83,112 +45,139 @@ export default class EstudentsRegisterComponent {
   itemsTipodoc = signal([]);
   itemsExtdocs = signal([]);
   selectedCity: any | undefined;
-  stateSearchCI: boolean = false;
+  stateSearchCIest: boolean = false;
+  stateSearchCItut1: boolean = false;
+  stateSearchCItut2: boolean = false;
 
   constructor(private fb: FormBuilder, private personaService: PersonaService, private extdocService: ExtdocService, private tipodocService: TipodocService) {
+    this.loadTipoDoc();
+    this.loadExtDoc();
     this.initForm();
   }
 
-  initForm() {
+  initForm(): void {
     this.fg = this.fb.group({
-      est_tipodoc: new FormControl(0, { validators: [Validators.required]}),
-      est_extdoc: new FormControl(0, { validators: [Validators.required]}),
-      est_doc: new FormControl('', { validators: [Validators.required]}),
-      est_nombre: new FormControl('', { validators: [Validators.required]}),
-      est_app: new FormControl('', { validators: [Validators.required]}),
-      est_apm: new FormControl('', { validators: [Validators.required]}),
-      est_fnaci: new FormControl('', { validators: [Validators.required]}),
-      est_sexo: new FormControl(true, { validators: [Validators.required]}),
-      est_estadociv: new FormControl('', { validators: [Validators.required]}),
-      est_dir: new FormControl('', { validators: [Validators.required]}),
-      est_telcel: new FormControl('', { validators: [Validators.required]}),
-      est_email: new FormControl('', { validators: [Validators.required, Validators.email]}),
+        estudiante: this.fb.group({
+        est_tipodoc: new FormControl<number | null>(0, [Validators.required]),
+        est_extdoc: new FormControl<number | null>(0, [Validators.required]),
+        est_doc: new FormControl<string | null>('', [Validators.required]),
+        est_nombre: new FormControl<string | null>('', [Validators.required]),
+        est_app: new FormControl<string | null>('', [Validators.required]),
+        est_apm: new FormControl<string | null>('', [Validators.required]),
+        est_fnaci: new FormControl<string | null>('', [Validators.required]),
+        est_sexo: new FormControl<boolean | null>(true, [Validators.required]),
+        est_estadociv: new FormControl<string | null>('', [Validators.required]),
+        est_dir: new FormControl<string | null>('', [Validators.required]),
+        est_telcel: new FormControl<string | null>('', [Validators.required]),
+        est_email: new FormControl<string | null>('', [Validators.required, Validators.email]),
+      }),
+      tutor1: this.fb.group({
+        tut_tipodoc: new FormControl<number | null>(0, [Validators.required]),
+        tut_doc: new FormControl<string | null>('', [Validators.required]),
+        tut_extdoc: new FormControl<number | null>(0, [Validators.required]),
+        tut_nombre: new FormControl<string | null>('', [Validators.required]),
+        tut_app: new FormControl<string | null>('', [Validators.required]),
+        tut_apm: new FormControl<string | null>('', [Validators.required]),
+        tut_fnaci: new FormControl<string | null>('', [Validators.required]),
+        tut_sexo: new FormControl<boolean | null>(true, [Validators.required]),
+        tut_estadociv: new FormControl<string | null>('', [Validators.required]),
+        tut_dir: new FormControl<string | null>('', [Validators.required]),
+        tut_telcel: new FormControl<string | null>('', [Validators.required]),
+        tut_email: new FormControl<string | null>('', [Validators.required, Validators.email]),
+      }),
+      tutor2: this.fb.group({
+        tut_tipodoc: new FormControl<number | null>(0, [Validators.required]),
+        tut_doc: new FormControl<string | null>('', [Validators.required]),
+        tut_extdoc: new FormControl<number | null>(0, [Validators.required]),
+        tut_nombre: new FormControl<string | null>('', [Validators.required]),
+        tut_app: new FormControl<string | null>('', [Validators.required]),
+        tut_apm: new FormControl<string | null>('', [Validators.required]),
+        tut_fnaci: new FormControl<string | null>('', [Validators.required]),
+        tut_sexo: new FormControl<boolean | null>(true, [Validators.required]),
+        tut_estadociv: new FormControl<string | null>('', [Validators.required]),
+        tut_dir: new FormControl<string | null>('', [Validators.required]),
+        tut_telcel: new FormControl<string | null>('', [Validators.required]),
+        tut_email: new FormControl<string | null>('', [Validators.required, Validators.email]),
+      })
+    });
 
-      tut1_tipodoc: new FormControl(0, { validators: [Validators.required]}),
-      tut1_extdoc: new FormControl(0, { validators: [Validators.required]}),
-      tut1_doc: new FormControl('', { validators: [Validators.required]}),
-      tut1_nombre: new FormControl('', { validators: [Validators.required]}),
-      tut1_app: new FormControl('', { validators: [Validators.required]}),
-      tut1_apm: new FormControl('', { validators: [Validators.required]}),
-      tut1_fnaci: new FormControl('', { validators: [Validators.required]}),
-      tut1_sexo: new FormControl(true, { validators: [Validators.required]}),
-      tut1_estadociv: new FormControl('', { validators: [Validators.required]}),
-      tut1_dir: new FormControl('', { validators: [Validators.required]}),
-      tut1_telcel: new FormControl('', { validators: [Validators.required]}),
-      tut1_email: new FormControl('', { validators: [Validators.required, Validators.email]}),
+    this.changeDocEst1();
+  }
 
-      tut2_tipodoc: new FormControl(0, { validators: [Validators.required]}),
-      tut2_extdoc: new FormControl(0, { validators: [Validators.required]}),
-      tut2_doc: new FormControl('', { validators: [Validators.required]}),
-      tut2_nombre: new FormControl('', { validators: [Validators.required]}),
-      tut2_app: new FormControl('', { validators: [Validators.required]}),
-      tut2_apm: new FormControl('', { validators: [Validators.required]}),
-      tut2_fnaci: new FormControl('', { validators: [Validators.required]}),
-      tut2_sexo: new FormControl(true, { validators: [Validators.required]}),
-      tut2_estadociv: new FormControl('', { validators: [Validators.required]}),
-      tut2_dir: new FormControl('', { validators: [Validators.required]}),
-      tut2_telcel: new FormControl('', { validators: [Validators.required]}),
-      tut2_email: new FormControl('', { validators: [Validators.required, Validators.email]}),
+  changeDocEst1(): void {
+    const docControl = this.fg.get('estudiante.est_doc') as FormControl;
+    docControl.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe(t => {
+      console.log(t);
+      if (t !== '' && this.stateSearchCIest === false) {
+        console.log('siiiiiiii');
+        this.searchCIeeest(t);
+        this.stateSearchCIest = true;
+      } else {
+        console.log("nooooooooooooo");
+        this.stateSearchCIest = t === '' ? false : true;
+      }
     });
   }
 
-  changeDocEst(doc: string) {
-    const docControl = this.fg.get('est_doc') as FormControl;
-    docControl.valueChanges
-      .subscribe(t => {
-        console.log(t);
-        if (t !== '' && this.stateSearchCI === false) {
-          console.log('siiiiiiii');
-          this.searchCI(t);
-          // this.stateSearchCI = true;
-        } else {
-          console.log("nooooooooooooo")
-          this.stateSearchCI = (t === '')? false: true;
-        }
-      });
+  searchCIeeest(doc: string): void {
+    // Simulación de una búsqueda que devuelve un objeto con datos del estudiante
+    const fakeResponse: EstudianteData = {
+      est_tipodoc: 1,
+      est_extdoc: 2,
+      est_doc: doc,
+      est_nombre: 'Juan',
+      est_app: 'Perez',
+      est_apm: 'Lopez',
+      est_fnaci: '2000-01-01',
+      est_sexo: true,
+      est_estadociv: 'Soltero',
+      est_dir: 'Calle Falsa 123',
+      est_telcel: '123456789',
+      est_email: 'juan.perez@example.com'
+    };
+
+    this.updateEstudianteFormEst(fakeResponse);
   }
-  changeDocTut1(doc: string) {
-    const docControl = this.fg.get('est_doc') as FormControl;
-    docControl.valueChanges
-      .subscribe(t => {
-        console.log(t);
-        if (t !== '' && this.stateSearchCI === false) {
-          console.log('siiiiiiii');
-          this.searchCI(t);
-          // this.stateSearchCI = true;
-        } else {
-          console.log("nooooooooooooo")
-          this.stateSearchCI = (t === '')? false: true;
-        }
-      });
+  updateEstudianteFormEst(data: Partial<EstudianteData>): void {
+    this.fg.get('estudiante')?.patchValue(data);
   }
-  changeDocTut2(doc: string) {
-    const docControl = this.fg.get('est_doc') as FormControl;
-    docControl.valueChanges
-      .subscribe(t => {
-        console.log(t);
-        if (t !== '' && this.stateSearchCI === false) {
-          console.log('siiiiiiii');
-          this.searchCI(t);
-          // this.stateSearchCI = true;
-        } else {
-          console.log("nooooooooooooo")
-          this.stateSearchCI = (t === '')? false: true;
-        }
-      });
+
+  // changeDocEst(val: any): void {
+  //   console.log(val);
+  //   const docControl = this.fg.get('estudiante.est_doc') as FormControl;
+  //   docControl.valueChanges.subscribe(t => {
+  //     console.log(t);
+  //     if (t !== '' && this.stateSearchCIest === false) {
+  //       console.log('siiiiiiii');
+  //       // this.searchCIEstud(t);
+  //       this.stateSearchCIest = true;
+  //     } else {
+  //       console.log("nooooooooooooo");
+  //       this.stateSearchCIest = t === '' ? false : true;
+  //     }
+  //   });
+  // }
+
+  updateEstudianteForm(data: Partial<EstudianteForm>): void {
+    this.fg.get('estudiante')?.patchValue(data);
   }
-  async searchCI(ci: string) {
-    await this.personaService.getOneEmployeCi(ci)
+  async searchCIanterior(ci: string): Promise<any> {
+    return await this.personaService.getOneEmployeCi(ci)
       .pipe(debounceTime(2000))
       .subscribe({
         next: ((t: any) => {
           console.log(t);
-          // if (this.stateSearchCI) {
-            this.stateSearchCI = true;
-            this.fg.patchValue(t);
+          console.log(this.stateSearchCIest);
+          // if (this.stateSearchCIest) {
+            this.stateSearchCIest = true;
+            // this.fg.patchValue(t);
+            return {data: t, state: true};
           // }
         }),
-        error: ((err: any) => console.log(err))
+        error: ((err: any) => { console.log(err);
+          return {data: err, state: false};} )
       })
   }
 
@@ -211,6 +200,8 @@ export default class EstudentsRegisterComponent {
 
   clear () {
     this.fg.reset();
-    this.stateSearchCI = false;
+    this.stateSearchCIest = false;
+    this.stateSearchCItut1 = false;
+    this.stateSearchCItut2 = false;
   }
 }
