@@ -172,7 +172,7 @@ export default class EmployesRegisterComponent implements OnInit {
   }
 
   async searchCI(ci: string) {
-    await this.personaService.getOneEmployeCi(ci)
+    await this.personaService.getOneCi(ci)
       .pipe(debounceTime(2000))
       .subscribe({
         next: ((t: any) => {

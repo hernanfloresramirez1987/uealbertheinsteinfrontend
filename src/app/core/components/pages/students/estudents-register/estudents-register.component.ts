@@ -20,7 +20,7 @@ import { PersonaService } from '../../../../services/persona.service';
 import { debounceTime } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { ExtdocService } from '../../../../services/extdoc.service';
-import { EstudianteData, EstudianteForm, MainForm } from '../../../../models/pa_estudiante_2tutores.interface';
+import { EstudianteData, EstudianteForm, MainForm, TutorData } from '../../../../models/pa_estudiante_2tutores.interface';
 
 @Component({
   selector: 'app-estudents-register',
@@ -101,10 +101,12 @@ export default class EstudentsRegisterComponent {
       })
     });
 
-    this.changeDocEst1();
+    this.changeDocEst();
+    this.changeDocTut1();
+    this.changeDocTut2();
   }
 
-  changeDocEst1(): void {
+  changeDocEst(): void {
     const docControl = this.fg.get('estudiante.est_doc') as FormControl;
     docControl.valueChanges
       .pipe(debounceTime(2000))
@@ -113,35 +115,173 @@ export default class EstudentsRegisterComponent {
       if (t !== '' && this.stateSearchCIest === false) {
         console.log('siiiiiiii');
         this.searchCIeeest(t);
-        this.stateSearchCIest = true;
       } else {
         console.log("nooooooooooooo");
         this.stateSearchCIest = t === '' ? false : true;
       }
     });
   }
+  changeDocTut1(): void {
+    const docControl = this.fg.get('tutor1.tut_doc') as FormControl;
+    docControl.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe(t => {
+      if (t !== '' && this.stateSearchCItut1 === false) {
+        this.searchCItutor1(t);
+      } else {
+        console.log("nooooooooooooo");
+        this.stateSearchCItut1 = t === '' ? false : true;
+      }
+    });
+  }
+  changeDocTut2(): void {
+    const docControl = this.fg.get('tutor2.tut_doc') as FormControl;
+    docControl.valueChanges
+      .pipe(debounceTime(2000))
+      .subscribe(t => {
+      if (t !== '' && this.stateSearchCItut2 === false) {
+        this.searchCItutor2(t);
+      } else {
+        console.log("nooooooooooooo");
+        this.stateSearchCItut2 = t === '' ? false : true;
+      }
+    });
+  }
 
-  searchCIeeest(doc: string): void {
-    // Simulación de una búsqueda que devuelve un objeto con datos del estudiante
-    const fakeResponse: EstudianteData = {
-      est_tipodoc: 1,
-      est_extdoc: 2,
-      est_doc: doc,
-      est_nombre: 'Juan',
-      est_app: 'Perez',
-      est_apm: 'Lopez',
-      est_fnaci: '2000-01-01',
-      est_sexo: true,
-      est_estadociv: 'Soltero',
-      est_dir: 'Calle Falsa 123',
-      est_telcel: '123456789',
-      est_email: 'juan.perez@example.com'
-    };
+  async searchCItutor1(doc: string) {
+    return await this.personaService.getOneCi(doc)
+      .pipe(debounceTime(2000))
+      .subscribe({
+        next: ((t: any) => {
+          console.log(t);
+          console.log(this.stateSearchCItut1);
+          // if (this.stateSearchCItut1) {
+            const fakeResponse: TutorData = {
+              tut_tipodoc: t.tipodoc,
+              tut_extdoc: t.extdoc,
+              tut_doc: doc,
+              tut_nombre: t.nombre,
+              tut_app: t.app,
+              tut_apm: t.apm,
+              tut_fnaci: t.fnaci,
+              tut_sexo: t.sexo,
+              tut_estadociv: t.estadociv,
+              tut_dir: t.dir,
+              tut_telcel: t.tut_telcel,
+              tut_email: t.email,
+            };
+            this.updateEstudianteFormTut1(fakeResponse);
+            this.stateSearchCItut1 = true;
+            return {data: t, state: true};
+          // }
+        }),
+        error: ((err: any) => { console.log(err);
+          return {data: err, state: false};} )
+      })
+  }
 
-    this.updateEstudianteFormEst(fakeResponse);
+  async searchCItutor2(doc: string) {
+    return await this.personaService.getOneCi(doc)
+      .pipe(debounceTime(2000))
+      .subscribe({
+        next: ((t: any) => {
+          console.log(t);
+          console.log(this.stateSearchCItut2);
+          // if (this.stateSearchCItut1) {
+            const fakeResponse: TutorData = {
+              tut_tipodoc: t.tipodoc,
+              tut_extdoc: t.extdoc,
+              tut_doc: doc,
+              tut_nombre: t.nombre,
+              tut_app: t.app,
+              tut_apm: t.apm,
+              tut_fnaci: t.fnaci,
+              tut_sexo: t.sexo,
+              tut_estadociv: t.estadociv,
+              tut_dir: t.dir,
+              tut_telcel: t.tut_telcel,
+              tut_email: t.email,
+            };
+            this.updateEstudianteFormTut2(fakeResponse);
+            this.stateSearchCItut2 = true;
+            return {data: t, state: true};
+          // }
+        }),
+        error: ((err: any) => { console.log(err);
+          return {data: err, state: false};} )
+      })
+  }
+
+  async searchCIeeest(doc: string) {
+    return await this.personaService.getOneCi(doc)
+      .pipe(debounceTime(2000))
+      .subscribe({
+        next: ((t: any) => {
+          console.log(t);
+          console.log(this.stateSearchCIest);
+          // if (this.stateSearchCIest) {
+            const fakeResponse: EstudianteData = {
+              est_tipodoc: t.tipodoc,
+              est_extdoc: t.extdoc,
+              est_doc: doc,
+              est_nombre: t.nombre,
+              est_app: t.app,
+              est_apm: t.apm,
+              est_fnaci: t.fnaci,
+              est_sexo: t.sexo,
+              est_estadociv: t.estadociv,
+              est_dir: t.dir,
+              est_telcel: t.est_telcel,
+              est_email: t.email,
+            };
+            this.updateEstudianteFormEst(fakeResponse);
+            this.stateSearchCIest = true;
+            return {data: t, state: true};
+          // }
+        }),
+        error: ((err: any) => { console.log(err);
+          return {data: err, state: false};} )
+      })
+  }
+  async searchCItut1(doc: string) {
+    return await this.personaService.getOneCi(doc)
+      .pipe(debounceTime(2000))
+      .subscribe({
+        next: ((t: any) => {
+          console.log(t);
+          console.log(this.stateSearchCIest);
+          // if (this.stateSearchCIest) {
+            const fakeResponse: TutorData = {
+              tut_tipodoc: t.tipodoc,
+              tut_extdoc: t.extdoc,
+              tut_doc: doc,
+              tut_nombre: t.nombre,
+              tut_app: t.app,
+              tut_apm: t.apm,
+              tut_fnaci: t.fnaci,
+              tut_sexo: t.sexo,
+              tut_estadociv: t.estadociv,
+              tut_dir: t.dir,
+              tut_telcel: t.tut_telcel,
+              tut_email: t.email,
+            };
+            this.updateEstudianteFormTut1(fakeResponse);
+            this.stateSearchCIest = true;
+            return {data: t, state: true};
+          // }
+        }),
+        error: ((err: any) => { console.log(err);
+          return {data: err, state: false};} )
+      })
   }
   updateEstudianteFormEst(data: Partial<EstudianteData>): void {
     this.fg.get('estudiante')?.patchValue(data);
+  }
+  updateEstudianteFormTut1(data: Partial<TutorData>): void {
+    this.fg.get('tutor1')?.patchValue(data);
+  }
+  updateEstudianteFormTut2(data: Partial<TutorData>): void {
+    this.fg.get('tutor2')?.patchValue(data);
   }
 
   // changeDocEst(val: any): void {
@@ -164,7 +304,7 @@ export default class EstudentsRegisterComponent {
     this.fg.get('estudiante')?.patchValue(data);
   }
   async searchCIanterior(ci: string): Promise<any> {
-    return await this.personaService.getOneEmployeCi(ci)
+    return await this.personaService.getOneCi(ci)
       .pipe(debounceTime(2000))
       .subscribe({
         next: ((t: any) => {

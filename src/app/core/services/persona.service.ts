@@ -15,5 +15,5 @@ export class PersonaService {
 
   getOneEmployeId = (id: number) => this.http.get(`${this.url}persona/${id}`);
 
-  getOneEmployeCi = (ci: string) => this.http.post<Persona>(`${this.url}persona`, { ci });
+  getOneCi = (ci: string) => this.http.post<Persona>(`${this.url}persona`, { ci });
 }
