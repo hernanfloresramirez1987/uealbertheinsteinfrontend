@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
-import { PersonalDto } from '../../../../models/personalDto.model';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule, FormsModule, NgControl } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
@@ -13,25 +12,25 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { CargoService } from '../../../../services/cargo.service';
 import { TipoempleadoService } from '../../../../services/tipoempleado.service';
-// import { CommonModule } from '@angular/common';
 import { RolService } from '../../../../services/rol.service';
 import { TipodocService } from '../../../../services/tipodoc.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ExtdocService } from '../../../../services/extdoc.service';
-import { P_A_Personal } from '../../../../models/pa_personal.interface';
 import { EmployesService } from '../../../../services/employes.service';
 import { Router, RouterModule } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { PersonaService } from '../../../../services/persona.service';
+import { FileUploadModule } from 'primeng/fileupload';
+import { P_A_Personal } from '../../../../models/pa_personal.interface';
 
 @Component({
   selector: 'app-employes-register',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, FloatLabelModule, RouterModule],
+  imports: [ReactiveFormsModule, FormsModule, RadioButtonModule, CardModule, InputTextModule, MultiSelectModule, DropdownModule, CalendarModule, SelectButtonModule, ToggleButtonModule, SidebarModule, FloatLabelModule, RouterModule, FileUploadModule],
   providers: [CargoService, TipoempleadoService, TipodocService, DatePipe],
   templateUrl: './employes-register.component.html',
-  styleUrl: './employes-register.component.css'
-})
+    styleUrl: './employes-register.component.css'
+}) //
 export default class EmployesRegisterComponent implements OnInit {
   visible: boolean = false;
   dataDtoEmployes: P_A_Personal = {} as P_A_Personal;
@@ -53,6 +52,7 @@ export default class EmployesRegisterComponent implements OnInit {
     telcel: FormControl<string | null>,
     email: FormControl<string | null>,
 
+    nua: FormControl<string | null>,
     idtipo: FormControl<number | null>,
     idcargo: FormControl<number | null>,
     salario: FormControl<number | null>
@@ -85,6 +85,8 @@ export default class EmployesRegisterComponent implements OnInit {
   selectedCity: any | undefined;
   stateSearchCI: boolean = false;
 
+  uploadedFiles: any[] = [];
+
   constructor(private fb: FormBuilder, private employesService: EmployesService, private personaService: PersonaService, private cargoService: CargoService, private tipoempleadoService: TipoempleadoService, private extdocService: ExtdocService, private tipodocService: TipodocService, private rolService: RolService, private datePipe: DatePipe, private router: Router) {
     this.loadCargo();
     this.loadTipoEmpleado();
@@ -116,6 +118,7 @@ export default class EmployesRegisterComponent implements OnInit {
       email: new FormControl('', { validators: [Validators.required, Validators.email]}),
       idtipo: new FormControl(0, { validators: [Validators.required]}),
       idcargo: new FormControl(0, { validators: [Validators.required]}),
+      nua: new FormControl('', { validators: []}),
       // fing: new FormControl('', { validators: [Validators.required]}),
       salario: new FormControl(0, { validators: [Validators.required]})
     });
@@ -141,8 +144,9 @@ export default class EmployesRegisterComponent implements OnInit {
             p_dir: t.dir,
             p_telcel: t.telcel,
             p_email: t.email,
-            e_idcargo: t.idcargo.id,
             e_formacion: t.idtipo.id,
+            e_idcargo: t.idcargo.id,
+            e_nua: t.nua,
             e_fing: '',
             e_salario: t.salario
           }
@@ -153,8 +157,6 @@ export default class EmployesRegisterComponent implements OnInit {
   }
 
   changeDoc(doc: string) {
-    console.log("doc::::::: ", doc, this.stateSearchCI);
-    // this.searchCI(doc);
     const docControl = this.fg.get('doc') as FormControl;
     docControl.valueChanges
       .subscribe(t => {
@@ -162,7 +164,6 @@ export default class EmployesRegisterComponent implements OnInit {
         if (t !== '' && this.stateSearchCI === false) {
           console.log('siiiiiiii');
           this.searchCI(t);
-          // this.stateSearchCI = true;
         } else {
           console.log("nooooooooooooo")
           this.stateSearchCI = (t === '')? false: true;
@@ -220,9 +221,7 @@ export default class EmployesRegisterComponent implements OnInit {
         error: ((err: Error) => console.log(err))
       })
   }
-  toggleSidebar() {
-    this.visible = !this.visible;
-  }
+  toggleSidebar = () => this.visible = !this.visible;
 
   savePromise() {
     this.employesService.savePromise(this.dataDtoEmployes)
@@ -260,5 +259,8 @@ export default class EmployesRegisterComponent implements OnInit {
   clear () {
     this.fg.reset();
     this.stateSearchCI = false;
+  }
+  onUpload(e: any) {
+    console.log(e);
   }
 }

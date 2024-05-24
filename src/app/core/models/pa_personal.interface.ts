@@ -16,6 +16,7 @@ export interface P_A_Personal {
   p_email: string;
   e_formacion: number;
   e_idcargo: number;
+  e_nua: string;
   e_fing: string;
   e_salario: number;
 }

@@ -19,65 +19,94 @@ export class AppMenuComponent {
         {
             label: 'Dashboard', icon: 'pi pi-home',
             items: [
-                { label: 'SaaS', icon: 'pi pi-desktop', routerLink: ['/'] },
-                { label: 'Sales', icon: 'pi pi-chart-bar', routerLink: ['/dashboard-sales'] }
+                { label: 'Inicio', icon: 'pi pi-desktop', routerLink: ['/'] },
+                { label: 'Panel principal', icon: 'pi pi-chart-bar', routerLink: ['/dashboard'] }
             ]
         },
         {
-          label: 'Administradores', icon: 'pi pi-align-left',
-          ms: [
-            { label: 'SaaS', icon: 'pi pi-user', routerLink: ['/employes'] },
-            { label: 'Sales', icon: 'pi pi-user', routerLink: ['/employes/register'] }
-          ]
+            label: 'Administracion', icon: 'pi pi-align-left',
+            items: [
+                {
+                    label: 'Personal', icon: 'pi pi-align-left',
+                    items: [
+                        {
+                            label: 'Planilla', routerLink: '/employes' //icon: 'pi pi-align-left',
+                            // items: [
+                            //     { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
+                            //     { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
+                            //     { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' },
+                            // ]
+                        },
+                        {
+                            label: 'Registrar', routerLink: '/employes/register' //icon: 'pi pi-align-left',
+                            // items: [
+                            //     { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' }
+                            // ]
+                        },
+                    ]
+                },
+                {
+                    label: 'Estudiantes', icon: 'pi pi-align-left',
+                    items: [
+                        {
+                            label: 'Lista', routerLink: '/students' //icon: 'pi pi-align-left',
+                            // items: [
+                            //     { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
+                            //     { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
+                            // ]
+                        },
+                        {
+                            label: 'Submenu 2.2', routerLink: '/students/register' //icon: 'pi pi-align-left',
+                            // items: [
+                            //     { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
+                            // ]
+                        },
+                    ]
+                }
+            ]
         },
-        {
-          label: 'Empleados', icon: 'pi pi-align-left',
-        },
-        {
-          label: 'Estudiantes', icon: 'pi pi-align-left',
-        },
-        {
-            label: 'Other', icon: 'pi pi-align-left',
-            // items: [
-            //     {
-            //         label: 'Submenu 1', icon: 'pi pi-align-left',
-            //         items: [
-            //             {
-            //                 label: 'Submenu 1.1', icon: 'pi pi-align-left',
-            //                 items: [
-            //                     { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
-            //                     { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
-            //                     { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' },
-            //                 ]
-            //             },
-            //             {
-            //                 label: 'Submenu 1.2', icon: 'pi pi-align-left',
-            //                 items: [
-            //                     { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' }
-            //                 ]
-            //             },
-            //         ]
-            //     },
-            //     {
-            //         label: 'Submenu 2', icon: 'pi pi-align-left',
-            //         items: [
-            //             {
-            //                 label: 'Submenu 2.1', icon: 'pi pi-align-left',
-            //                 items: [
-            //                     { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
-            //                     { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
-            //                 ]
-            //             },
-            //             {
-            //                 label: 'Submenu 2.2', icon: 'pi pi-align-left',
-            //                 items: [
-            //                     { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
-            //                 ]
-            //             },
-            //         ]
-            //     }
-            // ]
-        }
+      //   {
+      //     label: 'Administracion', icon: 'pi pi-align-left',
+      //     items: [
+      //         {
+      //             label: 'Personal', icon: 'pi pi-align-left',
+      //             items: [
+      //                 {
+      //                     label: 'Submenu 1.1', icon: 'pi pi-align-left',
+      //                     items: [
+      //                         { label: 'Submenu 1.1.1', icon: 'pi pi-align-left' },
+      //                         { label: 'Submenu 1.1.2', icon: 'pi pi-align-left' },
+      //                         { label: 'Submenu 1.1.3', icon: 'pi pi-align-left' },
+      //                     ]
+      //                 },
+      //                 {
+      //                     label: 'Submenu 1.2', icon: 'pi pi-align-left',
+      //                     items: [
+      //                         { label: 'Submenu 1.2.1', icon: 'pi pi-align-left' }
+      //                     ]
+      //                 },
+      //             ]
+      //         },
+      //         {
+      //             label: 'Estudiantes', icon: 'pi pi-align-left',
+      //             items: [
+      //                 {
+      //                     label: 'Submenu 2.1', icon: 'pi pi-align-left',
+      //                     items: [
+      //                         { label: 'Submenu 2.1.1', icon: 'pi pi-align-left' },
+      //                         { label: 'Submenu 2.1.2', icon: 'pi pi-align-left' },
+      //                     ]
+      //                 },
+      //                 {
+      //                     label: 'Submenu 2.2', icon: 'pi pi-align-left',
+      //                     items: [
+      //                         { label: 'Submenu 2.2.1', icon: 'pi pi-align-left' },
+      //                     ]
+      //                 },
+      //             ]
+      //         }
+      //     ]
+      // }
     ];
   }
 
