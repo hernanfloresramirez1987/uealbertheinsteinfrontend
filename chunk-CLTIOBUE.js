@@ -1,0 +1,1 @@
+import{Jb as r,Rb as s,ca as a,rb as o,sb as i}from"./chunk-ZC5HX7CF.js";var d=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=a({type:e,selectors:[["app-payments"]],standalone:!0,features:[s],decls:2,vars:0,template:function(n,m){n&1&&(o(0,"p"),r(1,"payments works!"),i())}});let t=e;return t})();export{d as default};

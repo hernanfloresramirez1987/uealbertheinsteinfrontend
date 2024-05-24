@@ -1,0 +1,1 @@
+import{Jb as i,Rb as r,ca as o,rb as a,sb as s}from"./chunk-ZC5HX7CF.js";var f=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=o({type:e,selectors:[["app-students"]],standalone:!0,features:[r],decls:2,vars:0,template:function(n,p){n&1&&(a(0,"p"),i(1,"students works!"),s())}});let t=e;return t})();export{f as default};

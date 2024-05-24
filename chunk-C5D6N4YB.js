@@ -1,0 +1,1 @@
+import{Jb as o,Rb as s,ca as a,rb as r,sb as i}from"./chunk-ZC5HX7CF.js";var d=(()=>{let e=class e{};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=a({type:e,selectors:[["app-payments-register"]],standalone:!0,features:[s],decls:2,vars:0,template:function(n,m){n&1&&(r(0,"p"),o(1,"payments-register works!"),i())}});let t=e;return t})();export{d as default};
