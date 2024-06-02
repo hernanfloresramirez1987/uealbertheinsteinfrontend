@@ -179,7 +179,13 @@ export default class EmployesRegisterComponent implements OnInit {
           console.log(t);
           // if (this.stateSearchCI) {
             this.stateSearchCI = true;
-            this.fg.patchValue(t);
+            //this.fg.patchValue(t);
+            const patchedValues = {
+              ...t,
+              idtipo: t.tipodoc,
+              extdoc: t.extdoc
+            };
+            this.fg.patchValue(patchedValues);
           // }
         }),
         error: ((err: any) => console.log(err))
