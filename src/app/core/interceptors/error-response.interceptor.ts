@@ -8,7 +8,7 @@ export const errorResponseInterceptor: HttpInterceptorFn = (req, next) => {
       let errorMessage = ``;
       
       if (err.error instanceof ErrorEvent) {
-        errorMessage = ``;
+        errorMessage = `Error: `, err.error.message;
       } else {
         errorMessage = `Error code: ${err.status}, message: ${err.message}`;
       }

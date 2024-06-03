@@ -18,10 +18,11 @@ import { DatePipe } from '@angular/common';
 import { ExtdocService } from '../../../../services/extdoc.service';
 import { EmployesService } from '../../../../services/employes.service';
 import { Router, RouterModule } from '@angular/router';
-import { debounceTime } from 'rxjs';
+import { catchError, debounceTime, throwError } from 'rxjs';
 import { PersonaService } from '../../../../services/persona.service';
 import { FileUploadModule } from 'primeng/fileupload';
 import { P_A_Personal } from '../../../../models/pa_personal.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-employes-register',
@@ -127,7 +128,9 @@ export default class EmployesRegisterComponent implements OnInit {
     this.fg.valueChanges
       .pipe(debounceTime(2000))
       .subscribe({
-        next: (t: any) => { console.log(t);
+        next: (t: any) => { 
+          console.log(t);
+          console.log(t.tipodoc);
           this.dataDtoEmployes = {
             u_username: t.username,
             u_password: t.password,
@@ -162,10 +165,10 @@ export default class EmployesRegisterComponent implements OnInit {
       .subscribe(t => {
         console.log(t);
         if (t !== '' && this.stateSearchCI === false) {
-          console.log('siiiiiiii');
+          //console.log('siiiiiiii');
           this.searchCI(t);
         } else {
-          console.log("nooooooooooooo")
+          //console.log("nooooooooooooo")
           this.stateSearchCI = (t === '')? false: true;
         }
       });
@@ -173,22 +176,28 @@ export default class EmployesRegisterComponent implements OnInit {
 
   async searchCI(ci: string) {
     await this.personaService.getOneCi(ci)
-      .pipe(debounceTime(2000))
+      .pipe(debounceTime(2500))
       .subscribe({
         next: ((t: any) => {
           console.log(t);
           // if (this.stateSearchCI) {
             this.stateSearchCI = true;
-            //this.fg.patchValue(t);
             const patchedValues = {
               ...t,
               idtipo: t.tipodoc,
               extdoc: t.extdoc
             };
             this.fg.patchValue(patchedValues);
+            console.log(`t.tipodoc: `, t.tipodoc);
+            //this.fg.setValue(patchedValues);
+
+            //.get('idtipo').setValue(t.tipodoc);
           // }
         }),
-        error: ((err: any) => console.log(err))
+        error: ((err: any) => console.log(err)),
+        complete() {
+            console.log('completo!!!!!!');
+        },
       })
   }
 
